@@ -23,4 +23,5 @@
     <string name="discoverable">Make discoverable</string>
     <string name="sample_show_log">Show Log</string>
     <string name="sample_hide_log">Hide Log</string>
+    <string name="settings">Settings</string>
 </resources>
