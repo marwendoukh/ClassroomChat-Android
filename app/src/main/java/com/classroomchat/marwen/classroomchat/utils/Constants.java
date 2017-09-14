@@ -1,10 +1,10 @@
 package com.classroomchat.marwen.classroomchat.utils;
 
-/**
- * Created by marwen on 9/14/17.
- */
 
-public class Constants {
+/**
+ * Defines several constants used between {@link BluetoothChatService} and the UI.
+ */
+public interface Constants {
 
     // Message types sent from the BluetoothChatService Handler
     public static final int MESSAGE_STATE_CHANGE = 1;
@@ -18,4 +18,3 @@ public class Constants {
     public static final String TOAST = "toast";
 
 }
-
