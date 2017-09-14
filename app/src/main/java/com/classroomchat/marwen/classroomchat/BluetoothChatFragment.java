@@ -362,7 +362,6 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
         // Z axis
         if (Math.round(event.values[0]) <= -10) {
             sendMessage(sharedPref.getString(SettingsActivity.MESSAGE3, "msg3"));
-            sendMessage("msg3");
             sleep();
 
 
@@ -371,7 +370,6 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
         // X axis
         if (Math.round(event.values[1]) <= -10) {
             sendMessage(sharedPref.getString(SettingsActivity.MESSAGE4, "msg4"));
-            sendMessage("msg4");
             sleep();
 
 
