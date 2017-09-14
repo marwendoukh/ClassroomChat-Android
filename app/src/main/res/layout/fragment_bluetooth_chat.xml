@@ -5,6 +5,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <LinearLayout
+        android:id="@+id/connection_status"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@color/colorAccent"
+        android:orientation="vertical" />
+
+
     <ListView
         android:id="@+id/in"
         android:layout_width="match_parent"

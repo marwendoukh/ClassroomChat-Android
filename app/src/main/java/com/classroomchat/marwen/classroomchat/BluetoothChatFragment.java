@@ -10,6 +10,7 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -20,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,6 +45,7 @@ public class BluetoothChatFragment extends Fragment {
     private ListView mConversationView;
     private EditText mOutEditText;
     private Button mSendButton;
+    private LinearLayout connectionStatus;
 
     /**
      * Name of the connected device
@@ -59,6 +62,8 @@ public class BluetoothChatFragment extends Fragment {
     private final Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
+
+
             FragmentActivity activity = getActivity();
             switch (msg.what) {
                 case Constants.MESSAGE_STATE_CHANGE:
@@ -69,6 +74,7 @@ public class BluetoothChatFragment extends Fragment {
                         case BluetoothChatService.STATE_CONNECTING:
                             break;
                         case BluetoothChatService.STATE_LISTEN:
+                            break;
                         case BluetoothChatService.STATE_NONE:
                             break;
                     }
@@ -91,12 +97,16 @@ public class BluetoothChatFragment extends Fragment {
                     if (null != activity) {
                         Toast.makeText(activity, "Connected to "
                                 + mConnectedDeviceName, Toast.LENGTH_SHORT).show();
+                        // change connection status color
+                        connectionStatus.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.connection_status_connected));
                     }
                     break;
                 case Constants.MESSAGE_TOAST:
                     if (null != activity) {
                         Toast.makeText(activity, msg.getData().getString(Constants.TOAST),
                                 Toast.LENGTH_SHORT).show();
+                        // change connection status color
+                        connectionStatus.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.connection_status_not_connected));
                     }
                     break;
             }
@@ -179,6 +189,7 @@ public class BluetoothChatFragment extends Fragment {
         mConversationView = (ListView) view.findViewById(R.id.in);
         mOutEditText = (EditText) view.findViewById(R.id.edit_text_out);
         mSendButton = (Button) view.findViewById(R.id.button_send);
+        connectionStatus = (LinearLayout) view.findViewById(R.id.connection_status);
     }
 
     /**
