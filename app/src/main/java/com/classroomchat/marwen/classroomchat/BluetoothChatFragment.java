@@ -3,7 +3,12 @@ package com.classroomchat.marwen.classroomchat;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.content.Context;
 import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -33,7 +38,7 @@ import com.classroomchat.marwen.classroomchat.utils.Constants;
 /**
  * This fragment controls Bluetooth to communicate with other devices.
  */
-public class BluetoothChatFragment extends Fragment {
+public class BluetoothChatFragment extends Fragment implements SensorEventListener {
 
     private static final String TAG = "BluetoothChatFragment";
 
@@ -46,6 +51,10 @@ public class BluetoothChatFragment extends Fragment {
     private EditText mOutEditText;
     private Button mSendButton;
     private LinearLayout connectionStatus;
+
+    // sensor
+    private SensorManager mSensorManager;
+    private Sensor mLight;
 
     /**
      * Name of the connected device
@@ -138,6 +147,20 @@ public class BluetoothChatFragment extends Fragment {
             Toast.makeText(activity, "Bluetooth is not available", Toast.LENGTH_LONG).show();
             activity.finish();
         }
+
+        // setup the sensor
+        mSensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
+        mLight = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+
+        if (mLight != null) {
+            // Success! There's a pressure sensor.
+            System.out.println("position : there is sensor ");
+        } else {
+            // Failure! No pressure sensor.
+            System.out.println("position : no sensor ");
+
+        }
+
     }
 
     @Override
@@ -176,6 +199,8 @@ public class BluetoothChatFragment extends Fragment {
                 mChatService.start();
             }
         }
+        mSensorManager.registerListener(this, mLight, SensorManager.SENSOR_DELAY_NORMAL);
+
     }
 
     @Override
@@ -323,5 +348,33 @@ public class BluetoothChatFragment extends Fragment {
         }
         return false;
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mSensorManager.unregisterListener(this);
+    }
+
+
+    // monitor sensor change
+    @Override
+    public final void onSensorChanged(SensorEvent event) {
+        // The light sensor returns a single value.
+        // Many sensors return 3 values, one for each axis.
+        float position = event.values[0];
+        // Do something with this sensor value.
+
+
+        if (Math.round(event.values[2]) == 5) {
+            System.out.println("position 5 !");
+        }
+
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int i) {
+
+    }
+
 
 }
