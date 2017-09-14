@@ -25,6 +25,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".DeviceListActivity"></activity>
+        <activity android:name=".SettingsActivity" />
     </application>
 
 </manifest>

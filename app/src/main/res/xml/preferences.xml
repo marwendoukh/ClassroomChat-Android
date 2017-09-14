@@ -1,0 +1,37 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:key="pref_messages_settings"
+        android:title="@string/settings_configure_messages">
+
+
+        <EditTextPreference
+            android:defaultValue="@string/message1"
+            android:inputType="text"
+            android:key="@string/message1"
+            android:summary="@string/settings_description_message_1"
+            android:title="@string/message1" />
+
+        <EditTextPreference
+            android:defaultValue="@string/message2"
+            android:inputType="text"
+            android:key="@string/message2"
+            android:summary="@string/settings_description_message_2"
+            android:title="@string/message2" />
+
+        <EditTextPreference
+            android:defaultValue="@string/message3"
+            android:inputType="text"
+            android:key="@string/message3"
+            android:summary="@string/settings_description_message_3"
+            android:title="@string/message3" />
+
+        <EditTextPreference
+            android:defaultValue="@string/message4"
+            android:inputType="text"
+            android:key="@string/message4"
+            android:summary="@string/settings_description_message_4"
+            android:title="@string/message4" />
+
+    </PreferenceCategory>
+</PreferenceScreen>
+

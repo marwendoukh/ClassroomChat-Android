@@ -24,4 +24,15 @@
     <string name="sample_show_log">Show Log</string>
     <string name="sample_hide_log">Hide Log</string>
     <string name="settings">Settings</string>
+    <string name="settings_configure_messages">Configure your custom messages</string>
+    <string name="message1">message1</string>
+    <string name="message2">message2</string>
+    <string name="message3">message3</string>
+    <string name="message4">message4</string>
+    <string name="settings_description_message_1">Choose the message to send when rotation the phone to the front</string>
+    <string name="settings_description_message_2">Choose the message to send when rotation the phone to the left</string>
+    <string name="settings_description_message_3">Choose the message to send when rotation the phone to the right</string>
+    <string name="settings_description_message_4">Choose the message to send when rotation the phone to the down</string>
+
+
 </resources>

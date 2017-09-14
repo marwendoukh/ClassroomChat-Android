@@ -5,6 +5,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -12,6 +13,7 @@ import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -42,15 +44,13 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
     // Intent request codes
     private static final int REQUEST_CONNECT_DEVICE_SECURE = 1;
     private static final int REQUEST_ENABLE_BT = 2;
-
+    SharedPreferences sharedPref;
     // Layout Views
     private ListView mConversationView;
     private LinearLayout connectionStatus;
-
     // sensor
     private SensorManager mSensorManager;
     private Sensor mLight;
-
     /**
      * Name of the connected device
      */
@@ -155,7 +155,7 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
             System.out.println("position : no sensor ");
 
         }
-
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
     }
 
     @Override
@@ -323,6 +323,11 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
                 ensureDiscoverable();
                 return true;
             }
+
+            case R.id.settings: {
+                startActivity(new Intent(getActivity(), SettingsActivity.class));
+                return true;
+            }
         }
         return false;
     }
@@ -338,26 +343,17 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
     @Override
     public final void onSensorChanged(SensorEvent event) {
 
-        System.out.println("position Y " + Math.round(event.values[2]));
-        System.out.println("position X " + Math.round(event.values[1]));
-        System.out.println("position Z " + Math.round(event.values[0]));
-
-        // Y axis
-       /* if (Math.round(event.values[2]) >= 9) {
-            System.out.println("msg1 ");
-        }*/
-
         // X axis
         if (Math.round(event.values[1]) >= 10) {
             System.out.println("msg1");
-            sendMessage("msg1");
+            sendMessage(sharedPref.getString(SettingsActivity.MESSAGE1, "msg1"));
             sleep();
         }
 
         // Z axis
         if (Math.round(event.values[0]) >= 10) {
             System.out.println("msg2");
-            sendMessage("msg2");
+            sendMessage(sharedPref.getString(SettingsActivity.MESSAGE2, "msg2"));
             sleep();
 
 
@@ -365,7 +361,7 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
 
         // Z axis
         if (Math.round(event.values[0]) <= -10) {
-            System.out.println("msg3");
+            sendMessage(sharedPref.getString(SettingsActivity.MESSAGE3, "msg3"));
             sendMessage("msg3");
             sleep();
 
@@ -374,7 +370,7 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
 
         // X axis
         if (Math.round(event.values[1]) <= -10) {
-            System.out.println("msg4");
+            sendMessage(sharedPref.getString(SettingsActivity.MESSAGE4, "msg4"));
             sendMessage("msg4");
             sleep();
 

@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="settings">Parametres</string>
+    <string name="settings_configure_messages">Configure your messages</string>
+    <string name="settings_description_message_1">Choose the message to send when rotation the phone to the front</string>
 </resources>
