@@ -1,16 +1,15 @@
-<?xml version="1.0" encoding="utf-8"?>
-
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
         android:id="@+id/secure_connect_scan"
-        android:showAsAction="ifRoom"
-        android:title="@string/secure_connect" />
+        android:title="@string/secure_connect"
+        app:showAsAction="always" />
 
 
     <item
         android:id="@+id/discoverable"
-        android:showAsAction="never"
-        android:title="@string/discoverable" />
+        android:title="@string/discoverable"
+        app:showAsAction="ifRoom" />
 
 </menu>
