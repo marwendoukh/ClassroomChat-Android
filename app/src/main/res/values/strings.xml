@@ -19,11 +19,10 @@
 
     <!-- Options Menu -->
     <string name="secure_connect">Connect a device - Secure</string>
-    <string name="insecure_connect">Connect a device - Insecure</string>
     <string name="discoverable">Make discoverable</string>
-    <string name="sample_show_log">Show Log</string>
-    <string name="sample_hide_log">Hide Log</string>
     <string name="settings">Settings</string>
+
+    <!-- Settings -->
     <string name="settings_configure_messages">Configure your custom messages</string>
     <string name="message1">message1</string>
     <string name="message2">message2</string>
