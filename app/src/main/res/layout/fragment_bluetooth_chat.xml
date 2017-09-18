@@ -5,12 +5,38 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/connection_status"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:background="@color/colorAccent"
-        android:orientation="vertical" />
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+        <ImageView
+            android:id="@+id/status_not_connected"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:src="@drawable/ic_bluetooth_disabled_24dp"
+            android:tint="@color/connection_status_not_connected" />
+
+        <ImageView
+            android:id="@+id/status_connected"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:src="@drawable/ic_bluetooth_connected_24dp"
+            android:tint="@color/connection_status_connected"
+            android:visibility="gone" />
+
+    </RelativeLayout>
+
+
+    <TextView
+        android:id="@+id/you_are_speaking_to"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal" />
 
 
     <ListView

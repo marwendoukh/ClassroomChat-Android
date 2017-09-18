@@ -17,7 +17,6 @@ import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -26,8 +25,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.classroomchat.marwen.classroomchat.utils.BluetoothChatService;
@@ -47,7 +47,8 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
     SharedPreferences sharedPref;
     // Layout Views
     private ListView mConversationView;
-    private LinearLayout connectionStatus;
+    private ImageView status_connected, status_not_connected;
+    private TextView connected_to;
     // sensor
     private SensorManager mSensorManager;
     private Sensor mLight;
@@ -101,16 +102,19 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
                     if (null != activity) {
                         Toast.makeText(activity, "Connected to "
                                 + mConnectedDeviceName, Toast.LENGTH_SHORT).show();
-                        // change connection status color
-                        connectionStatus.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.connection_status_connected));
+                        // change connection status
+                        status_connected.setVisibility(View.VISIBLE);
+                        status_not_connected.setVisibility(View.GONE);
+                        connected_to.setText(mConnectedDeviceName);
                     }
                     break;
                 case Constants.MESSAGE_TOAST:
                     if (null != activity) {
                         Toast.makeText(activity, msg.getData().getString(Constants.TOAST),
                                 Toast.LENGTH_SHORT).show();
-                        // change connection status color
-                        connectionStatus.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.connection_status_not_connected));
+                        // change connection status
+                        status_connected.setVisibility(View.GONE);
+                        status_not_connected.setVisibility(View.VISIBLE);
                     }
                     break;
             }
@@ -207,7 +211,10 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         mConversationView = (ListView) view.findViewById(R.id.in);
-        connectionStatus = (LinearLayout) view.findViewById(R.id.connection_status);
+        status_connected = (ImageView) view.findViewById(R.id.status_connected);
+        status_not_connected = (ImageView) view.findViewById(R.id.status_not_connected);
+        connected_to = (TextView) view.findViewById(R.id.you_are_speaking_to);
+
     }
 
     /**
