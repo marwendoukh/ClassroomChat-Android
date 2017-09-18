@@ -5,5 +5,7 @@
     <color name="colorAccent">#FF4081</color>
     <color name="connection_status_not_connected">#FF0000</color>
     <color name="connection_status_connected">#00FF00</color>
-    <color name="paired_devices_color">#78909C</color>
+    <color name="paired_devices_color_cardview">#78909C</color>
+    <color name="paired_devices_text_color">#FFFFFF</color>
+
 </resources>
