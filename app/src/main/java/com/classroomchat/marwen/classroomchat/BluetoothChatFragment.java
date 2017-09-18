@@ -13,6 +13,7 @@ import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -95,6 +96,7 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
                     // construct a string from the valid bytes in the buffer
                     String readMessage = new String(readBuf, 0, msg.arg1);
                     mConversationArrayAdapter.add(mConnectedDeviceName + ":  " + readMessage);
+                    vibrate(600);
                     break;
                 case Constants.MESSAGE_DEVICE_NAME:
                     // save the connected device's name
@@ -106,6 +108,7 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
                         status_connected.setVisibility(View.VISIBLE);
                         status_not_connected.setVisibility(View.GONE);
                         connected_to.setText(mConnectedDeviceName);
+                        vibrate(200);
                     }
                     break;
                 case Constants.MESSAGE_TOAST:
@@ -268,6 +271,7 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
             // Reset out string buffer to zero and clear the edit text field
             mOutStringBuffer.setLength(0);
         }
+        vibrate(200);
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -407,5 +411,11 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
         };
         new Thread(runnable).start();
 
+    }
+
+    private void vibrate(Integer time) {
+        Vibrator v = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
+        // Vibrate for 500 milliseconds
+        v.vibrate(time);
     }
 }
