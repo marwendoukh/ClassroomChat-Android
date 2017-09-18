@@ -14,9 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.classroomchat.marwen.classroomchat.adapter.PairedDevicesAdapter;
@@ -46,12 +44,14 @@ public class DeviceListActivity extends Activity {
     /**
      * Member fields
      */
-    private BluetoothAdapter mBtAdapter;
-
-    /**
-     * Newly discovered devices
-     */
-    private ArrayAdapter<String> mNewDevicesArrayAdapter;
+    public static BluetoothAdapter mBtAdapter;
+    //paired devices
+    private List<BluetoothDevice> pairedBluetoothDevices = new ArrayList<>();
+    private PairedDevicesAdapter pairedDevicesAdapter;
+    private RecyclerView pairedDevicesRecyclerView;
+    //new paired devices
+    private List<BluetoothDevice> newPairedBluetoothDevices = new ArrayList<>();
+    private PairedDevicesAdapter newPairedDevicesAdapter;
     /**
      * The BroadcastReceiver that listens for discovered devices and changes the title when
      * discovery is finished
@@ -67,22 +67,24 @@ public class DeviceListActivity extends Activity {
                 BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
                 // If it's already paired, skip it, because it's been listed already
                 if (device.getBondState() != BluetoothDevice.BOND_BONDED) {
-                    mNewDevicesArrayAdapter.add(device.getName() + "\n" + device.getAddress());
+                    newPairedBluetoothDevices.add(device);
+                    newPairedDevicesAdapter.notifyDataSetChanged();
                 }
                 // When discovery is finished, change the Activity title
             } else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
                 setProgressBarIndeterminateVisibility(false);
                 setTitle(R.string.select_device);
-                if (mNewDevicesArrayAdapter.getCount() == 0) {
-                    String noDevices = getResources().getText(R.string.none_found).toString();
-                    mNewDevicesArrayAdapter.add(noDevices);
+
+                if (newPairedBluetoothDevices.size() == 0) {
+                        /*String noDevices = getResources().getText(R.string.none_found).toString();
+                        mNewDevicesArrayAdapter.add(noDevices);*/
                 }
+
             }
         }
     };
-    private List<BluetoothDevice> bluetoothDevices = new ArrayList<>();
-    private PairedDevicesAdapter pairedDevicesAdapter;
-    private RecyclerView pairedDevicesRecyclerView;
+    private RecyclerView newPairedDevicesRecyclerView;
+
     /**
      * The on-click listener for all devices in the ListViews
      */
@@ -128,7 +130,7 @@ public class DeviceListActivity extends Activity {
 
         // Initialize array adapters. One for already paired devices and
         // one for newly discovered devices
-        pairedDevicesAdapter = new PairedDevicesAdapter(bluetoothDevices);
+        pairedDevicesAdapter = new PairedDevicesAdapter(pairedBluetoothDevices, this);
         // Find and set up the ListView for paired devices
         pairedDevicesRecyclerView = (RecyclerView) findViewById(R.id.paired_devices);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
@@ -136,9 +138,11 @@ public class DeviceListActivity extends Activity {
         pairedDevicesRecyclerView.setAdapter(pairedDevicesAdapter);
 
         // Find and set up the ListView for newly discovered devices
-        ListView newDevicesListView = (ListView) findViewById(R.id.new_devices);
-        newDevicesListView.setAdapter(mNewDevicesArrayAdapter);
-        newDevicesListView.setOnItemClickListener(mDeviceClickListener);
+        newPairedDevicesAdapter = new PairedDevicesAdapter(newPairedBluetoothDevices, this);
+        newPairedDevicesRecyclerView = (RecyclerView) findViewById(R.id.new_devices);
+        LinearLayoutManager mLayoutManager2 = new LinearLayoutManager(getApplicationContext());
+        newPairedDevicesRecyclerView.setLayoutManager(mLayoutManager2);
+        newPairedDevicesRecyclerView.setAdapter(newPairedDevicesAdapter);
 
         // Register for broadcasts when a device is discovered
         IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
@@ -158,7 +162,7 @@ public class DeviceListActivity extends Activity {
         if (pairedDevices.size() > 0) {
             findViewById(R.id.title_paired_devices).setVisibility(View.VISIBLE);
             for (BluetoothDevice device : pairedDevices) {
-                bluetoothDevices.add(device);
+                pairedBluetoothDevices.add(device);
                 pairedDevicesAdapter.notifyDataSetChanged();
             }
 
