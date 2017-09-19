@@ -1,5 +1,5 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="app_name">ClassroomChat</string>
+    <string name="app_name">Classroom Chat</string>
 
     <string name="send">Envoyer</string>
     <string name="not_connected">Vous n\'etes pas connecté a un peripherique</string>
