@@ -4,10 +4,16 @@
 
 It is an Android app that gives students the ability to chat in the classroom without TYPING ! by just rotating the phone. You could set your custom messages that you want to send when you rotate the phone to one of the 4 directions.
 
-## Features
+# Features
 * Make a Bluetooth chat
 * Set custom messages
 * Rotate the phone to the direction you desire
+* Send your message even if your screen is turned off
+
+# Screenshots
+
+
+<img alt='Classroom chat' src='https://marwendoukh.files.wordpress.com/2017/09/classromm-chat-screenshot1.jpg' height="500px"/> <img alt='Classroom chat' src='https://marwendoukh.files.wordpress.com/2017/09/classromm-chat-screenshot2.jpg' height="500px"/> <img alt='Classroom chat' src='https://marwendoukh.files.wordpress.com/2017/09/classromm-chat-screenshot3.jpg' height="500px"/> <img alt='Classroom chat' src='https://marwendoukh.files.wordpress.com/2017/09/classromm-chat-screenshot4.jpg' height="500px"/>
 
 
 # Developed by :
