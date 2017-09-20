@@ -5,7 +5,7 @@
     <!-- permissions needed for Bluetooth -->
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-    <!-- vibration permission-->
+    <!-- vibration permission -->
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
@@ -15,19 +15,20 @@
         android:roundIcon="@drawable/classroomchat_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DeviceListActivity"></activity>
+        <activity android:name=".DeviceListActivity" />
         <activity android:name=".SettingsActivity" />
+        <activity
+            android:name=".IntroActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

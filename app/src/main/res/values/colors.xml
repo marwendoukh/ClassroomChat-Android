@@ -7,5 +7,9 @@
     <color name="connection_status_connected">#00FF00</color>
     <color name="paired_devices_color_cardview">#78909C</color>
     <color name="paired_devices_text_color">#FFFFFF</color>
+    <color name="intro_first_slide">#2196F3</color>
+    <color name="intro_second_slide">#673AB7</color>
+    <color name="intro_third_slide">#F9A825</color>
+    <color name="intro_fourth_slide">#00C853</color>
 
 </resources>
