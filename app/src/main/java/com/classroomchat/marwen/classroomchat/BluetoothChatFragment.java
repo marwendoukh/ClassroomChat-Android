@@ -16,6 +16,7 @@ import android.os.Message;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
@@ -29,7 +30,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.classroomchat.marwen.classroomchat.utils.BluetoothChatService;
 import com.classroomchat.marwen.classroomchat.utils.Constants;
@@ -102,8 +102,9 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
                     // save the connected device's name
                     mConnectedDeviceName = msg.getData().getString(Constants.DEVICE_NAME);
                     if (null != activity) {
-                        Toast.makeText(activity, "Connected to "
-                                + mConnectedDeviceName, Toast.LENGTH_SHORT).show();
+                        Snackbar
+                                .make(getView(), "Connected to " + mConnectedDeviceName, Snackbar.LENGTH_SHORT)
+                                .show();
                         // change connection status
                         status_connected.setVisibility(View.VISIBLE);
                         status_not_connected.setVisibility(View.GONE);
@@ -113,8 +114,9 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
                     break;
                 case Constants.MESSAGE_TOAST:
                     if (null != activity) {
-                        Toast.makeText(activity, msg.getData().getString(Constants.TOAST),
-                                Toast.LENGTH_SHORT).show();
+                        Snackbar
+                                .make(getView(), msg.getData().getString(Constants.TOAST), Snackbar.LENGTH_SHORT)
+                                .show();
                         // change connection status
                         status_connected.setVisibility(View.GONE);
                         status_not_connected.setVisibility(View.VISIBLE);
@@ -146,7 +148,9 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
         // If the adapter is null, then Bluetooth is not supported
         if (mBluetoothAdapter == null) {
             FragmentActivity activity = getActivity();
-            Toast.makeText(activity, "Bluetooth is not available", Toast.LENGTH_LONG).show();
+            Snackbar
+                    .make(getView(), "Bluetooth is not available", Snackbar.LENGTH_SHORT)
+                    .show();
             activity.finish();
         }
 
@@ -258,7 +262,9 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
     private void sendMessage(String message) {
         // Check that we're actually connected before trying anything
         if (mChatService.getState() != BluetoothChatService.STATE_CONNECTED) {
-            Toast.makeText(getActivity(), R.string.not_connected, Toast.LENGTH_SHORT).show();
+            Snackbar
+                    .make(getView(), R.string.not_connected, Snackbar.LENGTH_SHORT)
+                    .show();
             return;
         }
 
@@ -291,8 +297,9 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
                 } else {
                     // User did not enable Bluetooth or an error occurred
                     Log.d(TAG, "BT not enabled");
-                    Toast.makeText(getActivity(), R.string.bt_not_enabled_leaving,
-                            Toast.LENGTH_SHORT).show();
+                    Snackbar
+                            .make(getView(), R.string.bt_not_enabled_leaving, Snackbar.LENGTH_SHORT)
+                            .show();
                     getActivity().finish();
                 }
         }
