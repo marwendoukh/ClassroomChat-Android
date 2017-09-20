@@ -33,5 +33,14 @@
     <string name="settings_description_message_3">Choisissez le message à envoyer lors de la rotation du téléphone à droite</string>
     <string name="settings_description_message_4">Choisissez le message à envoyer lors de la rotation du téléphone au dessous</string>
 
+    <!-- App intro -->
+    <string name="intro_first_title">Pivoter pour envoyer</string>
+    <string name="intro_first_description">Faites pivoter votre téléphone vers l\'une des 4 directions pour envoyer un message</string>
+    <string name="intro_second_title">Vous pouvez éteindre votre écran</string>
+    <string name="intro_second_description">Envoyez votre message même si votre écran est éteint</string>
+    <string name="intro_third_title">Personnaliser vos messages</string>
+    <string name="intro_third_description">Définissez vos messages personnalisés dans les paramètres de l\'application</string>
+    <string name="intro_fourth_title">Choisissez votre ami à proximité</string>
+    <string name="intro_fourth_description">Choisissez votre ami proche et communiquez avec lui en utilisant Bluetooth</string>
 
 </resources>

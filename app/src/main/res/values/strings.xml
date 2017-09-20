@@ -33,8 +33,14 @@
     <string name="settings_description_message_3">Choose the message to send when rotation the phone to the right</string>
     <string name="settings_description_message_4">Choose the message to send when rotation the phone to the down</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
+    <!-- App intro -->
+    <string name="intro_first_title">Rotate to send</string>
+    <string name="intro_first_description">Rotate your phone to one of the 4 directions to send a message</string>
+    <string name="intro_second_title">You could turn off your screen</string>
+    <string name="intro_second_description">Send your message even if your screen is turned off</string>
+    <string name="intro_third_title">Customize your messages</string>
+    <string name="intro_third_description">Set your custom messages in the App settings</string>
+    <string name="intro_fourth_title">Choose your nearby friend</string>
+    <string name="intro_fourth_description">Choose your nearby friend and communicate with him using Bluetooth</string>
 
 </resources>

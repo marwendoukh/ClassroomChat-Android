@@ -16,10 +16,10 @@ public class IntroActivity extends AppIntro2 {
         super.onCreate(savedInstanceState);
 
 
-        addSlide(AppIntroFragment.newInstance("Rotate to send", "Rotate your phone to one of the 4 directions to send a message", R.drawable.rotate_your_phone, ContextCompat.getColor(getApplicationContext(), R.color.intro_first_slide)));
-        addSlide(AppIntroFragment.newInstance("You could turn off your screen", "Send your message even if your screen is turned off", R.drawable.turn_off_screen, ContextCompat.getColor(getApplicationContext(), R.color.intro_second_slide)));
-        addSlide(AppIntroFragment.newInstance("Customize your messages", "Set your custom messages in the App settings", R.drawable.customize_your_messages, ContextCompat.getColor(getApplicationContext(), R.color.intro_third_slide)));
-        addSlide(AppIntroFragment.newInstance("Choose your nearby friend", "Choose your nearby friend and communicate with him using Bluetooth", R.drawable.choose_your_friend, ContextCompat.getColor(getApplicationContext(), R.color.intro_fourth_slide)));
+        addSlide(AppIntroFragment.newInstance(getResources().getString(R.string.intro_first_title), getResources().getString(R.string.intro_first_description), R.drawable.rotate_your_phone, ContextCompat.getColor(getApplicationContext(), R.color.intro_first_slide)));
+        addSlide(AppIntroFragment.newInstance(getResources().getString(R.string.intro_second_title), getResources().getString(R.string.intro_second_description), R.drawable.turn_off_screen, ContextCompat.getColor(getApplicationContext(), R.color.intro_second_slide)));
+        addSlide(AppIntroFragment.newInstance(getResources().getString(R.string.intro_third_title), getResources().getString(R.string.intro_third_description), R.drawable.customize_your_messages, ContextCompat.getColor(getApplicationContext(), R.color.intro_third_slide)));
+        addSlide(AppIntroFragment.newInstance(getResources().getString(R.string.intro_fourth_title), getResources().getString(R.string.intro_fourth_description), R.drawable.choose_your_friend, ContextCompat.getColor(getApplicationContext(), R.color.intro_fourth_slide)));
 
 
         // Hide Skip/Done button.
