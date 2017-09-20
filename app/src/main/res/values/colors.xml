@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#01579B</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#157BCC</color>
     <color name="connection_status_not_connected">#FF0000</color>
     <color name="connection_status_connected">#00FF00</color>
     <color name="paired_devices_color_cardview">#78909C</color>
