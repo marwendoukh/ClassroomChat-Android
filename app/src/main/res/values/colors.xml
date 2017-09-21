@@ -9,5 +9,7 @@
     <color name="intro_second_slide">#673AB7</color>
     <color name="intro_third_slide">#F9A825</color>
     <color name="intro_fourth_slide">#00C853</color>
+    <color name="person_avatar_me">#00ACC1</color>
+    <color name="person_avatar">#6A1B9A</color>
 
 </resources>
