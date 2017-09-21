@@ -21,6 +21,7 @@ licenses:
     - 'android-sdk-license-.+'
     - 'google-gdk-license-.+'
     - '.+'
+    - 'build-tools-.+'
 
 before_script:
   - chmod +x gradlew
