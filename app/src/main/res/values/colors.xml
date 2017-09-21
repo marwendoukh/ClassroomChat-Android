@@ -9,7 +9,10 @@
     <color name="intro_second_slide">#673AB7</color>
     <color name="intro_third_slide">#F9A825</color>
     <color name="intro_fourth_slide">#00C853</color>
-    <color name="person_avatar_me">#00ACC1</color>
-    <color name="person_avatar">#6A1B9A</color>
+    <color name="person_avatar">#157BCC</color>
+    <color name="cardview_background_me">#157BCC</color>
+    <color name="cardview_background_person">#E6E5EB</color>
+    <color name="conversation_chat_text_color_me">#FFFFFF</color>
+    <color name="conversation_chat_text_color_person">#000000</color>
 
 </resources>

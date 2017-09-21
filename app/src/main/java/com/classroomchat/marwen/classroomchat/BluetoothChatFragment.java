@@ -252,7 +252,7 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
         Log.d(TAG, "setupChat()");
 
         // Initialize the array adapter for the conversation thread
-        mConversationAdapter = new ChatMessagesAdapter(conversationChatMessages);
+        mConversationAdapter = new ChatMessagesAdapter(conversationChatMessages, getActivity());
 
         mConversationRecyclerView.setAdapter(mConversationAdapter);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());

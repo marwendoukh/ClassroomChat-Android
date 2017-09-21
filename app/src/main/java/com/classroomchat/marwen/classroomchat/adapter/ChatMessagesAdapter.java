@@ -4,16 +4,22 @@ package com.classroomchat.marwen.classroomchat.adapter;
  * Created by marwen on 9/15/17.
  */
 
+import android.app.Activity;
+import android.content.Context;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.classroomchat.marwen.classroomchat.R;
 import com.classroomchat.marwen.classroomchat.entity.ChatMessage;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,9 +28,12 @@ public class ChatMessagesAdapter extends RecyclerView.Adapter<ChatMessagesAdapte
 
 
     private List<ChatMessage> chatMessages = new ArrayList<>();
+    private Context context;
+    private SimpleDateFormat localDateFormat = new SimpleDateFormat("HH:mm:ss");
 
-    public ChatMessagesAdapter(List<ChatMessage> chatMessages) {
+    public ChatMessagesAdapter(List<ChatMessage> chatMessages, Context context) {
         this.chatMessages = chatMessages;
+        this.context = context;
     }
 
     @Override
@@ -37,15 +46,30 @@ public class ChatMessagesAdapter extends RecyclerView.Adapter<ChatMessagesAdapte
     public void onBindViewHolder(MyViewHolder holder, final int position) {
         holder.sender.setText(chatMessages.get(position).getSender());
         holder.messageContent.setText(chatMessages.get(position).getMessageContent());
-        holder.messageTime.setText(chatMessages.get(position).getTime().toString());
+        holder.messageTime.setText(localDateFormat.format(chatMessages.get(position).getTime()));
 
         // avatar
         if (chatMessages.get(position).getSender().equals("Me")) {
-            holder.avatarMe.setVisibility(View.VISIBLE);
-            holder.avatarPerson.setVisibility(View.GONE);
+            //cardview
+            holder.cardView.setCardBackgroundColor(ContextCompat.getColor(((Activity) context), R.color.cardview_background_me));
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            lp.setMargins(50, 5, 0, 5);
+            holder.cardView.setLayoutParams(lp);
+            // cardview text color
+            holder.messageContent.setTextColor(ContextCompat.getColor(((Activity) context), R.color.conversation_chat_text_color_me));
+            holder.messageTime.setTextColor(ContextCompat.getColor(((Activity) context), R.color.conversation_chat_text_color_me));
+            holder.sender.setTextColor(ContextCompat.getColor(((Activity) context), R.color.conversation_chat_text_color_me));
+
         } else {
-            holder.avatarMe.setVisibility(View.GONE);
-            holder.avatarPerson.setVisibility(View.VISIBLE);
+            //cardview
+            holder.cardView.setCardBackgroundColor(ContextCompat.getColor(((Activity) context), R.color.cardview_background_person));
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            lp.setMargins(0, 5, 50, 5);
+            holder.cardView.setLayoutParams(lp);
+            // cardview text color
+            holder.messageContent.setTextColor(ContextCompat.getColor(((Activity) context), R.color.conversation_chat_text_color_person));
+            holder.messageTime.setTextColor(ContextCompat.getColor(((Activity) context), R.color.conversation_chat_text_color_person));
+            holder.sender.setTextColor(ContextCompat.getColor(((Activity) context), R.color.conversation_chat_text_color_person));
         }
 
     }
@@ -58,7 +82,8 @@ public class ChatMessagesAdapter extends RecyclerView.Adapter<ChatMessagesAdapte
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView sender, messageContent, messageTime;
-        ImageView avatarMe, avatarPerson;
+        ImageView avatarPerson;
+        CardView cardView;
 
         public MyViewHolder(View view) {
             super(view);
@@ -66,8 +91,8 @@ public class ChatMessagesAdapter extends RecyclerView.Adapter<ChatMessagesAdapte
             sender = (TextView) view.findViewById(R.id.chat_message_sender);
             messageContent = (TextView) view.findViewById(R.id.chat_message_content);
             messageTime = (TextView) view.findViewById(R.id.chat_message_time);
-            avatarMe = (ImageView) view.findViewById(R.id.chat_message_sender_avatar_me);
             avatarPerson = (ImageView) view.findViewById(R.id.chat_message_sender_avatar_person);
+            cardView = (CardView) view.findViewById(R.id.chat_messages_cardview);
 
         }
     }
