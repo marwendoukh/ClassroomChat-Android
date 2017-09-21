@@ -53,7 +53,7 @@ public class ChatMessagesAdapter extends RecyclerView.Adapter<ChatMessagesAdapte
             //cardview
             holder.cardView.setCardBackgroundColor(ContextCompat.getColor(((Activity) context), R.color.cardview_background_me));
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            lp.setMargins(50, 5, 0, 5);
+            lp.setMargins(70, 5, 10, 5);
             holder.cardView.setLayoutParams(lp);
             // cardview text color
             holder.messageContent.setTextColor(ContextCompat.getColor(((Activity) context), R.color.conversation_chat_text_color_me));
@@ -64,7 +64,7 @@ public class ChatMessagesAdapter extends RecyclerView.Adapter<ChatMessagesAdapte
             //cardview
             holder.cardView.setCardBackgroundColor(ContextCompat.getColor(((Activity) context), R.color.cardview_background_person));
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            lp.setMargins(0, 5, 50, 5);
+            lp.setMargins(10, 5, 70, 5);
             holder.cardView.setLayoutParams(lp);
             // cardview text color
             holder.messageContent.setTextColor(ContextCompat.getColor(((Activity) context), R.color.conversation_chat_text_color_person));
