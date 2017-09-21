@@ -137,6 +137,7 @@
         android:layout_gravity="end|bottom"
         android:layout_margin="20dp"
         android:backgroundTint="@color/colorPrimary"
-        android:src="@drawable/ic_edit" />
+        android:src="@drawable/ic_edit"
+        android:visibility="gone"/>
 
 </android.support.design.widget.CoordinatorLayout>

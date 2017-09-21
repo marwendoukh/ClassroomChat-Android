@@ -128,6 +128,7 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
                         status_connected.setVisibility(View.VISIBLE);
                         status_not_connected.setVisibility(View.GONE);
                         messagesGuide.setVisibility(View.VISIBLE);
+                        fab.setVisibility(View.VISIBLE);
                         setupMessagesGuide();
                         connected_to.setText(mConnectedDeviceName);
                         vibrate(200);
@@ -142,6 +143,7 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
                         status_connected.setVisibility(View.GONE);
                         status_not_connected.setVisibility(View.VISIBLE);
                         messagesGuide.setVisibility(View.VISIBLE);
+                        fab.setVisibility(View.GONE);
                     }
                     break;
             }

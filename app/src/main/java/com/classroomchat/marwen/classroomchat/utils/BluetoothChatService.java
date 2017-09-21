@@ -283,6 +283,7 @@ public class BluetoothChatService {
                     break;
                 }
 
+
                 // If a connection was accepted
                 if (socket != null) {
                     synchronized (BluetoothChatService.this) {
