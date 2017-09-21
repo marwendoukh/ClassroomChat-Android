@@ -8,6 +8,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+        <!-- Connection status -->
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -21,6 +22,7 @@
             android:orientation="vertical"
             android:src="@drawable/ic_bluetooth_disabled_24dp"
             android:tint="@color/connection_status_not_connected" />
+
 
         <ImageView
             android:id="@+id/status_connected"
@@ -42,7 +44,81 @@
         android:layout_gravity="center_horizontal" />
 
 
-    <ListView
+        <!-- Messages guide -->
+
+        <LinearLayout
+            android:id="@+id/messages_guide"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/message_guide_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Message4" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:rotation="90"
+                android:src="@drawable/ic_keyboard_arrow" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/message_guide_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Message2" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_keyboard_arrow" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_phone_android" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:rotation="180"
+                    android:src="@drawable/ic_keyboard_arrow" />
+
+                <TextView
+                    android:id="@+id/message_guide_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Message3" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:rotation="270"
+                android:src="@drawable/ic_keyboard_arrow" />
+
+            <TextView
+                android:id="@+id/message_guide_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Message1" />
+
+
+        </LinearLayout>
+
+        <!-- Chat Messages -->
+
+        <ListView
         android:id="@+id/in"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

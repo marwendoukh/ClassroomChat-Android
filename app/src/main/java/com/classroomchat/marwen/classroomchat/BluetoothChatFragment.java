@@ -28,6 +28,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -50,6 +51,8 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
     private ListView mConversationView;
     private ImageView status_connected, status_not_connected;
     private TextView connected_to;
+    private LinearLayout messagesGuide;
+    private TextView messageGuide1, messageGuide2, messageGuide3, messageGuide4;
     // sensor
     private SensorManager mSensorManager;
     private Sensor mLight;
@@ -108,6 +111,8 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
                         // change connection status
                         status_connected.setVisibility(View.VISIBLE);
                         status_not_connected.setVisibility(View.GONE);
+                        messagesGuide.setVisibility(View.VISIBLE);
+                        setupMessagesGuide();
                         connected_to.setText(mConnectedDeviceName);
                         vibrate(200);
                     }
@@ -120,6 +125,7 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
                         // change connection status
                         status_connected.setVisibility(View.GONE);
                         status_not_connected.setVisibility(View.VISIBLE);
+                        messagesGuide.setVisibility(View.VISIBLE);
                     }
                     break;
             }
@@ -221,6 +227,11 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
         status_connected = (ImageView) view.findViewById(R.id.status_connected);
         status_not_connected = (ImageView) view.findViewById(R.id.status_not_connected);
         connected_to = (TextView) view.findViewById(R.id.you_are_speaking_to);
+        messagesGuide = (LinearLayout) view.findViewById(R.id.messages_guide);
+        messageGuide1 = (TextView) view.findViewById(R.id.message_guide_1);
+        messageGuide2 = (TextView) view.findViewById(R.id.message_guide_2);
+        messageGuide3 = (TextView) view.findViewById(R.id.message_guide_3);
+        messageGuide4 = (TextView) view.findViewById(R.id.message_guide_4);
 
     }
 
@@ -424,5 +435,13 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
         Vibrator v = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
         // Vibrate for 500 milliseconds
         v.vibrate(time);
+    }
+
+    private void setupMessagesGuide() {
+        messageGuide1.setText(sharedPref.getString(SettingsActivity.MESSAGE1, "msg1"));
+        messageGuide2.setText(sharedPref.getString(SettingsActivity.MESSAGE2, "msg2"));
+        messageGuide3.setText(sharedPref.getString(SettingsActivity.MESSAGE3, "msg3"));
+        messageGuide4.setText(sharedPref.getString(SettingsActivity.MESSAGE4, "msg4"));
+
     }
 }
