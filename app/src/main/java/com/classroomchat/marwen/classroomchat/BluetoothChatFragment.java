@@ -31,6 +31,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.classroomchat.marwen.classroomchat.adapter.ChatMessagesAdapter;
 import com.classroomchat.marwen.classroomchat.entity.ChatMessage;
@@ -320,9 +321,7 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
                 } else {
                     // User did not enable Bluetooth or an error occurred
                     Log.d(TAG, "BT not enabled");
-                    Snackbar
-                            .make(getView(), R.string.bt_not_enabled_leaving, Snackbar.LENGTH_SHORT)
-                            .show();
+                    Toast.makeText(getActivity(), R.string.bt_not_enabled_leaving, Toast.LENGTH_LONG).show();
                     getActivity().finish();
                 }
         }
