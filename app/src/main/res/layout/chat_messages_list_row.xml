@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/paired_devices_cardview"
+    android:id="@+id/chat_messages_cardview"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="20dp"
-    app:cardBackgroundColor="@color/paired_devices_color_cardview">
+    android:layout_margin="20dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,21 +14,25 @@
 
 
     <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/paired_device_name"
+        android:id="@+id/chat_message_sender"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="name"
-        android:textColor="@color/paired_devices_text_color"
+        android:text="sender"
         android:textSize="25sp" />
 
     <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/paired_device_address"
+        android:id="@+id/chat_message_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="30:20:10:50"
-        android:textColor="@color/paired_devices_text_color"
+        android:text="hi"
         android:textSize="15sp" />
 
+        <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/chat_message_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10:00"
+            android:textSize="15sp" />
 
     </LinearLayout>
 

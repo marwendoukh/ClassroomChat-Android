@@ -6,7 +6,7 @@ package com.classroomchat.marwen.classroomchat.utils;
  */
 public interface Constants {
 
-    // Message types sent from the BluetoothChatService Handler
+    // ChatMessage types sent from the BluetoothChatService Handler
     public static final int MESSAGE_STATE_CHANGE = 1;
     public static final int MESSAGE_READ = 2;
     public static final int MESSAGE_WRITE = 3;
@@ -14,7 +14,7 @@ public interface Constants {
     public static final int MESSAGE_TOAST = 5;
 
     // Key names received from the BluetoothChatService Handler
-    public static final String DEVICE_NAME = "paired_device_name";
+    public static final String DEVICE_NAME = "paired_device_name_list_row";
     public static final String TOAST = "toast";
 
 }

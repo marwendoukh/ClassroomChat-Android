@@ -118,8 +118,8 @@
 
         <!-- Chat Messages -->
 
-        <ListView
-        android:id="@+id/in"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/conversation"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"

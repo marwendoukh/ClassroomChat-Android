@@ -23,7 +23,7 @@
     <string name="settings">Settings</string>
 
     <!-- Settings -->
-    <string name="settings_configure_messages">Configure your custom messages</string>
+    <string name="settings_configure_messages">Configure your custom chatMessages</string>
     <string name="message1">message1</string>
     <string name="message2">message2</string>
     <string name="message3">message3</string>
@@ -38,8 +38,8 @@
     <string name="intro_first_description">Rotate your phone to one of the 4 directions to send a message</string>
     <string name="intro_second_title">You could turn off your screen</string>
     <string name="intro_second_description">Send your message even if your screen is turned off</string>
-    <string name="intro_third_title">Customize your messages</string>
-    <string name="intro_third_description">Set your custom messages in the App settings</string>
+    <string name="intro_third_title">Customize your chatMessages</string>
+    <string name="intro_third_description">Set your custom chatMessages in the App settings</string>
     <string name="intro_fourth_title">Choose your nearby friend</string>
     <string name="intro_fourth_description">Choose your nearby friend and communicate with him using Bluetooth</string>
 

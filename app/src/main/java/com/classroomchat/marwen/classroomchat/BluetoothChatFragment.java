@@ -19,6 +19,8 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -26,14 +28,18 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
+import com.classroomchat.marwen.classroomchat.adapter.ChatMessagesAdapter;
+import com.classroomchat.marwen.classroomchat.entity.ChatMessage;
 import com.classroomchat.marwen.classroomchat.utils.BluetoothChatService;
 import com.classroomchat.marwen.classroomchat.utils.Constants;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -48,7 +54,7 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
     private static final int REQUEST_ENABLE_BT = 2;
     SharedPreferences sharedPref;
     // Layout Views
-    private ListView mConversationView;
+    private RecyclerView mConversationRecyclerView;
     private ImageView status_connected, status_not_connected;
     private TextView connected_to;
     private LinearLayout messagesGuide;
@@ -64,7 +70,8 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
     /**
      * Array adapter for the conversation thread
      */
-    private ArrayAdapter<String> mConversationArrayAdapter;
+    private ChatMessagesAdapter mConversationAdapter;
+    private List<ChatMessage> conversationChatMessages = new ArrayList<>();
     /**
      * The Handler that gets information back from the BluetoothChatService
      */
@@ -78,7 +85,6 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
                 case Constants.MESSAGE_STATE_CHANGE:
                     switch (msg.arg1) {
                         case BluetoothChatService.STATE_CONNECTED:
-                            mConversationArrayAdapter.clear();
                             break;
                         case BluetoothChatService.STATE_CONNECTING:
                             break;
@@ -92,13 +98,17 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
                     byte[] writeBuf = (byte[]) msg.obj;
                     // construct a string from the buffer
                     String writeMessage = new String(writeBuf);
-                    mConversationArrayAdapter.add("Me:  " + writeMessage);
+                    conversationChatMessages.add(new ChatMessage("Me", writeMessage, new Date()));
+                    mConversationAdapter.notifyDataSetChanged();
+                    mConversationRecyclerView.smoothScrollToPosition(View.FOCUS_DOWN);
                     break;
                 case Constants.MESSAGE_READ:
                     byte[] readBuf = (byte[]) msg.obj;
                     // construct a string from the valid bytes in the buffer
                     String readMessage = new String(readBuf, 0, msg.arg1);
-                    mConversationArrayAdapter.add(mConnectedDeviceName + ":  " + readMessage);
+                    conversationChatMessages.add(new ChatMessage(mConnectedDeviceName, readMessage, new Date()));
+                    mConversationAdapter.notifyDataSetChanged();
+                    mConversationRecyclerView.smoothScrollToPosition(View.FOCUS_DOWN);
                     vibrate(600);
                     break;
                 case Constants.MESSAGE_DEVICE_NAME:
@@ -223,7 +233,7 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        mConversationView = (ListView) view.findViewById(R.id.in);
+        mConversationRecyclerView = (RecyclerView) view.findViewById(R.id.conversation);
         status_connected = (ImageView) view.findViewById(R.id.status_connected);
         status_not_connected = (ImageView) view.findViewById(R.id.status_not_connected);
         connected_to = (TextView) view.findViewById(R.id.you_are_speaking_to);
@@ -242,9 +252,11 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
         Log.d(TAG, "setupChat()");
 
         // Initialize the array adapter for the conversation thread
-        mConversationArrayAdapter = new ArrayAdapter<String>(getActivity(), R.layout.message);
+        mConversationAdapter = new ChatMessagesAdapter(conversationChatMessages);
 
-        mConversationView.setAdapter(mConversationArrayAdapter);
+        mConversationRecyclerView.setAdapter(mConversationAdapter);
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+        mConversationRecyclerView.setLayoutManager(mLayoutManager);
 
         // Initialize the BluetoothChatService to perform bluetooth connections
         mChatService = new BluetoothChatService(getActivity(), mHandler);

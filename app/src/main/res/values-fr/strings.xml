@@ -23,7 +23,7 @@
     <string name="settings">Parametres</string>
 
     <!-- Settings -->
-    <string name="settings_configure_messages">Configurer vos messages personnalisés</string>
+    <string name="settings_configure_messages">Configurer vos chatMessages personnalisés</string>
     <string name="message1">message1</string>
     <string name="message2">message2</string>
     <string name="message3">message3</string>
@@ -38,8 +38,8 @@
     <string name="intro_first_description">Faites pivoter votre téléphone vers l\'une des 4 directions pour envoyer un message</string>
     <string name="intro_second_title">Vous pouvez éteindre votre écran</string>
     <string name="intro_second_description">Envoyez votre message même si votre écran est éteint</string>
-    <string name="intro_third_title">Personnaliser vos messages</string>
-    <string name="intro_third_description">Définissez vos messages personnalisés dans les paramètres de l\'application</string>
+    <string name="intro_third_title">Personnaliser vos chatMessages</string>
+    <string name="intro_third_description">Définissez vos chatMessages personnalisés dans les paramètres de l\'application</string>
     <string name="intro_fourth_title">Choisissez votre ami à proximité</string>
     <string name="intro_fourth_description">Choisissez votre ami proche et communiquez avec lui en utilisant Bluetooth</string>
 
