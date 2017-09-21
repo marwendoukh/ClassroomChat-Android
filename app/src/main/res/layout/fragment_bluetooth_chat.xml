@@ -130,4 +130,13 @@
 
 </LinearLayout>
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/send_typed_message_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="20dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:src="@drawable/ic_edit" />
+
 </android.support.design.widget.CoordinatorLayout>

@@ -2,11 +2,14 @@
     <string name="app_name">Classroom Chat</string>
 
     <string name="send">Envoyer</string>
+    <string name="cancel">Annuler</string>
     <string name="not_connected">Connectez a un peripherique pour envoyer un message</string>
     <string name="bt_not_enabled_leaving">Bluetooth n\est pas activé. Quitter le chat .</string>
     <string name="title_connecting">Connexion ...</string>
     <string name="title_connected_to">connecté à <xliff:g id="device_name">%1$s</xliff:g></string>
     <string name="title_not_connected">n\est pas connecté</string>
+    <string name="your_message">Votre message</string>
+
 
     <!--  DeviceListActivity -->
     <string name="scanning">recherche de péripheriques...</string>

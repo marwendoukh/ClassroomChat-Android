@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.hardware.Sensor;
@@ -16,9 +17,11 @@ import android.os.Message;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -28,6 +31,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -60,6 +64,7 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
     private TextView connected_to;
     private LinearLayout messagesGuide;
     private TextView messageGuide1, messageGuide2, messageGuide3, messageGuide4;
+    private FloatingActionButton fab;
     // sensor
     private SensorManager mSensorManager;
     private Sensor mLight;
@@ -243,6 +248,14 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
         messageGuide2 = (TextView) view.findViewById(R.id.message_guide_2);
         messageGuide3 = (TextView) view.findViewById(R.id.message_guide_3);
         messageGuide4 = (TextView) view.findViewById(R.id.message_guide_4);
+        fab = (FloatingActionButton) view.findViewById(R.id.send_typed_message_fab);
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendTypedMessage();
+            }
+        });
 
     }
 
@@ -451,6 +464,34 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
         messageGuide2.setText(sharedPref.getString(SettingsActivity.MESSAGE2, "msg2"));
         messageGuide3.setText(sharedPref.getString(SettingsActivity.MESSAGE3, "msg3"));
         messageGuide4.setText(sharedPref.getString(SettingsActivity.MESSAGE4, "msg4"));
+
+    }
+
+    private void sendTypedMessage() {
+
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        View alertDialogView = inflater.inflate(R.layout.send_typed_message_dialog, null);
+        alertDialog.setView(alertDialogView);
+
+        final EditText textDialog = (EditText) alertDialogView.findViewById(R.id.typed_message);
+
+        alertDialog.setPositiveButton(getResources().getString(R.string.send), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+                sendMessage(textDialog.getText().toString());
+            }
+
+        });
+
+        alertDialog.setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+                sendMessage(textDialog.getText().toString());
+            }
+        });
+
+        alertDialog.show();
 
     }
 }
