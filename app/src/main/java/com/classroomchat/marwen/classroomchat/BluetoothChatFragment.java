@@ -286,9 +286,7 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
     private void sendMessage(String message) {
         // Check that we're actually connected before trying anything
         if (mChatService.getState() != BluetoothChatService.STATE_CONNECTED) {
-            Snackbar
-                    .make(getView(), R.string.not_connected, Snackbar.LENGTH_SHORT)
-                    .show();
+
             return;
         }
 
