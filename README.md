@@ -1,5 +1,5 @@
 **Build status:** master [![Build Status](https://travis-ci.org/marwendoukh/ClassroomChat-Android.svg?branch=master)](https://travis-ci.org/marwendoukh/ClassroomChat-Android)
-<br/>
+<br/><br/><br/>
 <img alt='Classroom chat logo' src='https://raw.githubusercontent.com/marwendoukh/ClassroomChat-Android/master/app/src/main/res/drawable/classroomchat_logo.png' height="200px"/></a>
 # Classroom Chat for Android  <br/>
 
