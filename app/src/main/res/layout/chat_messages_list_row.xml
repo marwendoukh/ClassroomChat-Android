@@ -29,6 +29,7 @@
                     android:id="@+id/chat_message_sender_avatar_person"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:contentDescription="Avatar"
                     android:src="@drawable/ic_person"
                     android:tint="@color/person_avatar" />
 
