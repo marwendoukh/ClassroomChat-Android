@@ -212,7 +212,7 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
             }
         }
         mSensorManager.registerListener(this, mLight, SensorManager.SENSOR_DELAY_NORMAL);
-
+        setupMessagesGuide();
     }
 
     @Override
