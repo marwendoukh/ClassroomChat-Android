@@ -282,7 +282,10 @@ public class BluetoothChatService {
                     Log.e(TAG, "Socket Type: " + mSocketType + "accept() failed", e);
                     break;
                 }
-
+                catch (NullPointerException e)
+                {
+                    Log.e(TAG,"Bluetooth closed ",e);
+                }
 
                 // If a connection was accepted
                 if (socket != null) {
