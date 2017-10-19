@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 
 import com.classroomchat.marwen.classroomchat.custom.views.RoundImageButton;
 
@@ -23,8 +24,10 @@ public class SetUpProfile extends AppCompatActivity {
 
     private final int SELECT_PHOTO = 1;
     private final String PROFILE_PICTURE = "profile_picture";
+    private final String USER_NAME = "user_name";
     private RoundImageButton userProfilePic;
     private SharedPreferences sharedPref;
+    private EditText userName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +35,7 @@ public class SetUpProfile extends AppCompatActivity {
         setContentView(R.layout.activity_set_up_profile);
 
         userProfilePic = (RoundImageButton) findViewById(R.id.preview_user_profile_picture_settingupaccount);
+        userName = (EditText) findViewById(R.id.name_user_profile_setup);
 
         userProfilePic.setOnClickListener(new View.OnClickListener() {
 
@@ -85,7 +89,9 @@ public class SetUpProfile extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.profile_setup: {
-
+                // save user name
+                sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                sharedPref.edit().putString(USER_NAME, userName.getText().toString()).apply();
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 return true;
             }
