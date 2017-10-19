@@ -1,6 +1,7 @@
 package com.classroomchat.marwen.classroomchat;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -15,10 +16,11 @@ import java.io.InputStream;
 
 public class SetUpProfile extends AppCompatActivity {
 
-    ImageView userProfilePic;
 
-    ImageView userProfilePic;
     private final int SELECT_PHOTO = 1;
+    private final String PROFILE_PICTURE = "profile_picture";
+    private ImageView userProfilePic;
+    private SharedPreferences sharedPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +54,8 @@ public class SetUpProfile extends AppCompatActivity {
                         final InputStream imageStream = getContentResolver().openInputStream(imageUri);
                         final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
                         userProfilePic.setImageBitmap(selectedImage);
+                        // save image URI
+                        sharedPref.edit().putBoolean(PROFILE_PICTURE, false).apply();
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     }
