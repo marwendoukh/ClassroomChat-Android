@@ -3,22 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.classroomchat.marwen.classroomchat.SetUpProfile">
 
-    <ImageView
+    <ImageButton
         android:id="@+id/preview_user_profile_picture_settingupaccount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_gravity="center_horizontal"
-        android:maxHeight="200dp" />
-
-    <Button
-        android:id="@+id/btn_pick"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:text="pick" />
+        android:background="#FFFFFFFF"
+        android:src="@drawable/ic_people_24dp" />
 
 
 </LinearLayout>

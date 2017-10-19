@@ -6,10 +6,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.ImageButton;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -19,7 +19,7 @@ public class SetUpProfile extends AppCompatActivity {
 
     private final int SELECT_PHOTO = 1;
     private final String PROFILE_PICTURE = "profile_picture";
-    private ImageView userProfilePic;
+    private ImageButton userProfilePic;
     private SharedPreferences sharedPref;
 
     @Override
@@ -27,10 +27,9 @@ public class SetUpProfile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_up_profile);
 
-        userProfilePic = (ImageView) findViewById(R.id.preview_user_profile_picture_settingupaccount);
+        userProfilePic = (ImageButton) findViewById(R.id.preview_user_profile_picture_settingupaccount);
 
-        Button pickImage = (Button) findViewById(R.id.btn_pick);
-        pickImage.setOnClickListener(new View.OnClickListener() {
+        userProfilePic.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
@@ -52,10 +51,13 @@ public class SetUpProfile extends AppCompatActivity {
                     try {
                         final Uri imageUri = imageReturnedIntent.getData();
                         final InputStream imageStream = getContentResolver().openInputStream(imageUri);
-                        final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                        Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                        // scale image to fit imageButton
+                        selectedImage = Bitmap.createScaledBitmap(selectedImage, 150, 150, true);
                         userProfilePic.setImageBitmap(selectedImage);
                         // save image URI
-                        sharedPref.edit().putBoolean(PROFILE_PICTURE, false).apply();
+                        sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                        sharedPref.edit().putString(PROFILE_PICTURE, imageUri.toString()).apply();
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     }
