@@ -45,5 +45,6 @@
     <string name="intro_third_description">Définissez vos chatMessages personnalisés dans les paramètres de l\'application</string>
     <string name="intro_fourth_title">Choisissez votre ami à proximité</string>
     <string name="intro_fourth_description">Choisissez votre ami proche et communiquez avec lui en utilisant Bluetooth</string>
+    <string name="your_name">Votre nom</string>
 
 </resources>

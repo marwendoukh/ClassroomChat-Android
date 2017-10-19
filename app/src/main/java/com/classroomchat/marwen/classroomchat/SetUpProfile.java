@@ -8,8 +8,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageButton;
+
+import com.classroomchat.marwen.classroomchat.custom.views.RoundImageButton;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -19,7 +23,7 @@ public class SetUpProfile extends AppCompatActivity {
 
     private final int SELECT_PHOTO = 1;
     private final String PROFILE_PICTURE = "profile_picture";
-    private ImageButton userProfilePic;
+    private RoundImageButton userProfilePic;
     private SharedPreferences sharedPref;
 
     @Override
@@ -27,7 +31,7 @@ public class SetUpProfile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_up_profile);
 
-        userProfilePic = (ImageButton) findViewById(R.id.preview_user_profile_picture_settingupaccount);
+        userProfilePic = (RoundImageButton) findViewById(R.id.preview_user_profile_picture_settingupaccount);
 
         userProfilePic.setOnClickListener(new View.OnClickListener() {
 
@@ -64,6 +68,29 @@ public class SetUpProfile extends AppCompatActivity {
 
                 }
         }
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.profile_setup, menu);
+
+        // return true so that the menu pop up is opened
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.profile_setup: {
+
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                return true;
+            }
+        }
+        return false;
     }
 
 }
