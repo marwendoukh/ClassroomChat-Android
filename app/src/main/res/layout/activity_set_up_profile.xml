@@ -1,8 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.classroomchat.marwen.classroomchat.SetUpProfile">
 
-</android.support.constraint.ConstraintLayout>
+    <ImageView
+        android:id="@+id/preview_user_profile_picture_settingupaccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:maxHeight="200dp" />
+
+    <Button
+        android:id="@+id/btn_pick"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:text="pick" />
+
+
+</LinearLayout>
