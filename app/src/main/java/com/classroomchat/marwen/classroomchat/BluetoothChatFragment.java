@@ -7,10 +7,13 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -24,6 +27,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -42,6 +46,9 @@ import com.classroomchat.marwen.classroomchat.entity.ChatMessage;
 import com.classroomchat.marwen.classroomchat.utils.BluetoothChatService;
 import com.classroomchat.marwen.classroomchat.utils.Constants;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -57,6 +64,7 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
     // Intent request codes
     private static final int REQUEST_CONNECT_DEVICE_SECURE = 1;
     private static final int REQUEST_ENABLE_BT = 2;
+    private final String PROFILE_PICTURE = "profile_picture";
     SharedPreferences sharedPref;
     // Layout Views
     private RecyclerView mConversationRecyclerView;
@@ -78,6 +86,18 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
      */
     private ChatMessagesAdapter mConversationAdapter;
     private List<ChatMessage> conversationChatMessages = new ArrayList<>();
+    /**
+     * String buffer for outgoing messages
+     */
+    private StringBuffer mOutStringBuffer;
+    /**
+     * Local Bluetooth adapter
+     */
+    private BluetoothAdapter mBluetoothAdapter = null;
+    /**
+     * Member object for the chat services
+     */
+    private BluetoothChatService mChatService = null;
     /**
      * The Handler that gets information back from the BluetoothChatService
      */
@@ -132,6 +152,7 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
                         setupMessagesGuide();
                         connected_to.setText(mConnectedDeviceName);
                         vibrate(200);
+                        establishConnection();
                     }
                     break;
                 case Constants.MESSAGE_TOAST:
@@ -149,18 +170,13 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
             }
         }
     };
-    /**
-     * String buffer for outgoing messages
-     */
-    private StringBuffer mOutStringBuffer;
-    /**
-     * Local Bluetooth adapter
-     */
-    private BluetoothAdapter mBluetoothAdapter = null;
-    /**
-     * Member object for the chat services
-     */
-    private BluetoothChatService mChatService = null;
+
+    public static String encodeToBase64(Bitmap image, Bitmap.CompressFormat compressFormat, int quality) {
+
+        ByteArrayOutputStream byteArrayOS = new ByteArrayOutputStream();
+        image.compress(compressFormat, quality, byteArrayOS);
+        return Base64.encodeToString(byteArrayOS.toByteArray(), Base64.DEFAULT);
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -391,7 +407,6 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
         mSensorManager.unregisterListener(this);
     }
 
-
     // monitor sensor change
     @Override
     public final void onSensorChanged(SensorEvent event) {
@@ -435,7 +450,6 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
     public void onAccuracyChanged(Sensor sensor, int i) {
 
     }
-
 
     private void sleep() {
         Runnable runnable = new Runnable() {
@@ -494,6 +508,21 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
         });
 
         alertDialog.show();
+
+    }
+
+    private void establishConnection() {
+        try {
+            final Uri imageUri = Uri.parse(sharedPref.getString(PROFILE_PICTURE, ""));
+            final InputStream imageStream = getActivity().getContentResolver().openInputStream(imageUri);
+            Bitmap profilePic = BitmapFactory.decodeStream(imageStream);
+            // scale image to fit imageButton
+            profilePic = Bitmap.createScaledBitmap(profilePic, 50, 50, true);
+            sendMessage(encodeToBase64(profilePic, Bitmap.CompressFormat.JPEG, 0));
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
 
     }
 }

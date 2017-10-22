@@ -27,11 +27,10 @@
 
                 <ImageView
                     android:id="@+id/chat_message_sender_avatar_person"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:contentDescription="Avatar"
-                    android:src="@drawable/ic_person"
-                    android:tint="@color/person_avatar" />
+                    android:src="@drawable/ic_person" />
 
 
             <TextView

@@ -6,9 +6,15 @@ package com.classroomchat.marwen.classroomchat.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +25,9 @@ import android.widget.TextView;
 import com.classroomchat.marwen.classroomchat.R;
 import com.classroomchat.marwen.classroomchat.entity.ChatMessage;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,13 +36,29 @@ import java.util.List;
 public class ChatMessagesAdapter extends RecyclerView.Adapter<ChatMessagesAdapter.MyViewHolder> {
 
 
+    private final String PROFILE_PICTURE = "profile_picture";
     private List<ChatMessage> chatMessages = new ArrayList<>();
     private Context context;
     private SimpleDateFormat localDateFormat = new SimpleDateFormat("HH:mm:ss");
+    private Bitmap friendPicture;
+    private SharedPreferences sharedPref;
+    private boolean establishingConnection = true;
+
 
     public ChatMessagesAdapter(List<ChatMessage> chatMessages, Context context) {
         this.chatMessages = chatMessages;
         this.context = context;
+    }
+
+    public static String encodeToBase64(Bitmap image, Bitmap.CompressFormat compressFormat, int quality) {
+        ByteArrayOutputStream byteArrayOS = new ByteArrayOutputStream();
+        image.compress(compressFormat, quality, byteArrayOS);
+        return Base64.encodeToString(byteArrayOS.toByteArray(), Base64.DEFAULT);
+    }
+
+    public static Bitmap decodeBase64(String input) {
+        byte[] decodedBytes = Base64.decode(input, 0);
+        return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
     }
 
     @Override
@@ -44,11 +69,26 @@ public class ChatMessagesAdapter extends RecyclerView.Adapter<ChatMessagesAdapte
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
+
+
+        // receive profile picture
+        if (establishingConnection) {
+            try {
+                if (!chatMessages.get(position).getSender().equals("Me")) {
+                    friendPicture = decodeBase64(chatMessages.get(position).getMessageContent());
+                    establishingConnection = false;
+                }
+
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.toString());
+            }
+        }
+
+
         holder.sender.setText(chatMessages.get(position).getSender());
         holder.messageContent.setText(chatMessages.get(position).getMessageContent());
         holder.messageTime.setText(localDateFormat.format(chatMessages.get(position).getTime()));
 
-        // avatar
         if (chatMessages.get(position).getSender().equals("Me")) {
             //cardview
             holder.cardView.setCardBackgroundColor(ContextCompat.getColor(((Activity) context), R.color.cardview_background_me));
@@ -60,6 +100,21 @@ public class ChatMessagesAdapter extends RecyclerView.Adapter<ChatMessagesAdapte
             holder.messageTime.setTextColor(ContextCompat.getColor(((Activity) context), R.color.conversation_chat_text_color_me));
             holder.sender.setTextColor(ContextCompat.getColor(((Activity) context), R.color.conversation_chat_text_color_me));
 
+            sharedPref = PreferenceManager.getDefaultSharedPreferences((Activity) context);
+            // set profile picture
+            try {
+                final Uri imageUri = Uri.parse(sharedPref.getString(PROFILE_PICTURE, ""));
+                final InputStream imageStream = context.getContentResolver().openInputStream(imageUri);
+                Bitmap profilePic = BitmapFactory.decodeStream(imageStream);
+                // scale image to fit imageButton
+                profilePic = Bitmap.createScaledBitmap(profilePic, 50, 50, true);
+                holder.avatarPerson.setImageBitmap(profilePic);
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+
+
         } else {
             //cardview
             holder.cardView.setCardBackgroundColor(ContextCompat.getColor(((Activity) context), R.color.cardview_background_person));
@@ -70,10 +125,16 @@ public class ChatMessagesAdapter extends RecyclerView.Adapter<ChatMessagesAdapte
             holder.messageContent.setTextColor(ContextCompat.getColor(((Activity) context), R.color.conversation_chat_text_color_person));
             holder.messageTime.setTextColor(ContextCompat.getColor(((Activity) context), R.color.conversation_chat_text_color_person));
             holder.sender.setTextColor(ContextCompat.getColor(((Activity) context), R.color.conversation_chat_text_color_person));
+            // set profile picture
+            try {
+                holder.avatarPerson.setImageBitmap(friendPicture);
+            } catch (NullPointerException e) {
+                System.out.println(e.toString());
+            }
+
+
         }
-
     }
-
 
     @Override
     public int getItemCount() {
