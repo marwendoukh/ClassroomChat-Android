@@ -65,6 +65,7 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
     private static final int REQUEST_CONNECT_DEVICE_SECURE = 1;
     private static final int REQUEST_ENABLE_BT = 2;
     private final String PROFILE_PICTURE = "profile_picture";
+    private final String USER_NAME = "user_name";
     SharedPreferences sharedPref;
     // Layout Views
     private RecyclerView mConversationRecyclerView;
@@ -331,6 +332,8 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
             mOutStringBuffer.setLength(0);
         }
         vibrate(200);
+
+
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -470,9 +473,13 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
     }
 
     private void vibrate(Integer time) {
-        Vibrator v = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
-        // Vibrate for 500 milliseconds
-        v.vibrate(time);
+        try {
+            Vibrator v = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
+            // Vibrate for 500 milliseconds
+            v.vibrate(time);
+        } catch (NullPointerException e) {
+            System.out.println("error occured when vibrating");
+        }
     }
 
     private void setupMessagesGuide() {
@@ -512,17 +519,29 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
     }
 
     private void establishConnection() {
+
         try {
+
             final Uri imageUri = Uri.parse(sharedPref.getString(PROFILE_PICTURE, ""));
             final InputStream imageStream = getActivity().getContentResolver().openInputStream(imageUri);
             Bitmap profilePic = BitmapFactory.decodeStream(imageStream);
             // scale image to fit imageButton
             profilePic = Bitmap.createScaledBitmap(profilePic, 50, 50, true);
-            sendMessage(encodeToBase64(profilePic, Bitmap.CompressFormat.JPEG, 0));
+            //transfert profile picture and  name
+            sendMessage(sharedPref.getString(USER_NAME, "") + "PICTURE" + encodeToBase64(profilePic, Bitmap.CompressFormat.JPEG, 0));
+
+
+            // pause to separate msgs
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+
 
     }
 }

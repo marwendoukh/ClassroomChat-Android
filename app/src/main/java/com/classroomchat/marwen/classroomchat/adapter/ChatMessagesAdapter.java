@@ -41,8 +41,10 @@ public class ChatMessagesAdapter extends RecyclerView.Adapter<ChatMessagesAdapte
     private Context context;
     private SimpleDateFormat localDateFormat = new SimpleDateFormat("HH:mm:ss");
     private Bitmap friendPicture;
+    private String friendName = "";
     private SharedPreferences sharedPref;
     private boolean establishingConnection = true;
+    private boolean receivedFriendName = false;
 
 
     public ChatMessagesAdapter(List<ChatMessage> chatMessages, Context context) {
@@ -71,68 +73,70 @@ public class ChatMessagesAdapter extends RecyclerView.Adapter<ChatMessagesAdapte
     public void onBindViewHolder(MyViewHolder holder, final int position) {
 
 
-        // receive profile picture
-        if (establishingConnection) {
-            try {
-                if (!chatMessages.get(position).getSender().equals("Me")) {
-                    friendPicture = decodeBase64(chatMessages.get(position).getMessageContent());
-                    establishingConnection = false;
+        //receive friend name and profile picture
+        if (establishingConnection && !chatMessages.get(position).getSender().equals("Me")) {
+            String msg = chatMessages.get(position).getMessageContent();
+            friendName = msg.substring(0, msg.indexOf("PICTURE") - 1);
+            friendPicture = decodeBase64(msg.substring(msg.indexOf("PICTURE") + 7));
+            establishingConnection = false;
+
+        } else if (!establishingConnection) {
+
+
+            // set sender name in chat UI
+            if (chatMessages.get(position).getSender().equals("Me")) {
+                holder.sender.setText(chatMessages.get(position).getSender());
+            } else {
+                holder.sender.setText(friendName);
+
+            }
+            holder.messageContent.setText(chatMessages.get(position).getMessageContent());
+            holder.messageTime.setText(localDateFormat.format(chatMessages.get(position).getTime()));
+
+            if (chatMessages.get(position).getSender().equals("Me")) {
+                //cardview
+                holder.cardView.setCardBackgroundColor(ContextCompat.getColor(((Activity) context), R.color.cardview_background_me));
+                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                lp.setMargins(70, 5, 10, 5);
+                holder.cardView.setLayoutParams(lp);
+                // cardview text color
+                holder.messageContent.setTextColor(ContextCompat.getColor(((Activity) context), R.color.conversation_chat_text_color_me));
+                holder.messageTime.setTextColor(ContextCompat.getColor(((Activity) context), R.color.conversation_chat_text_color_me));
+                holder.sender.setTextColor(ContextCompat.getColor(((Activity) context), R.color.conversation_chat_text_color_me));
+
+                sharedPref = PreferenceManager.getDefaultSharedPreferences((Activity) context);
+                // set profile picture
+                try {
+                    final Uri imageUri = Uri.parse(sharedPref.getString(PROFILE_PICTURE, ""));
+                    final InputStream imageStream = context.getContentResolver().openInputStream(imageUri);
+                    Bitmap profilePic = BitmapFactory.decodeStream(imageStream);
+                    // scale image to fit imageButton
+                    profilePic = Bitmap.createScaledBitmap(profilePic, 50, 50, true);
+                    holder.avatarPerson.setImageBitmap(profilePic);
+
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
                 }
 
-            } catch (IllegalArgumentException e) {
-                System.out.println(e.toString());
+
+            } else {
+                //cardview
+                holder.cardView.setCardBackgroundColor(ContextCompat.getColor(((Activity) context), R.color.cardview_background_person));
+                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                lp.setMargins(10, 5, 70, 5);
+                holder.cardView.setLayoutParams(lp);
+                // cardview text color
+                holder.messageContent.setTextColor(ContextCompat.getColor(((Activity) context), R.color.conversation_chat_text_color_person));
+                holder.messageTime.setTextColor(ContextCompat.getColor(((Activity) context), R.color.conversation_chat_text_color_person));
+                holder.sender.setTextColor(ContextCompat.getColor(((Activity) context), R.color.conversation_chat_text_color_person));
+                // set profile picture
+                try {
+                    holder.avatarPerson.setImageBitmap(friendPicture);
+                } catch (NullPointerException e) {
+                    System.out.println(e.toString());
+                }
+
             }
-        }
-
-
-        holder.sender.setText(chatMessages.get(position).getSender());
-        holder.messageContent.setText(chatMessages.get(position).getMessageContent());
-        holder.messageTime.setText(localDateFormat.format(chatMessages.get(position).getTime()));
-
-        if (chatMessages.get(position).getSender().equals("Me")) {
-            //cardview
-            holder.cardView.setCardBackgroundColor(ContextCompat.getColor(((Activity) context), R.color.cardview_background_me));
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            lp.setMargins(70, 5, 10, 5);
-            holder.cardView.setLayoutParams(lp);
-            // cardview text color
-            holder.messageContent.setTextColor(ContextCompat.getColor(((Activity) context), R.color.conversation_chat_text_color_me));
-            holder.messageTime.setTextColor(ContextCompat.getColor(((Activity) context), R.color.conversation_chat_text_color_me));
-            holder.sender.setTextColor(ContextCompat.getColor(((Activity) context), R.color.conversation_chat_text_color_me));
-
-            sharedPref = PreferenceManager.getDefaultSharedPreferences((Activity) context);
-            // set profile picture
-            try {
-                final Uri imageUri = Uri.parse(sharedPref.getString(PROFILE_PICTURE, ""));
-                final InputStream imageStream = context.getContentResolver().openInputStream(imageUri);
-                Bitmap profilePic = BitmapFactory.decodeStream(imageStream);
-                // scale image to fit imageButton
-                profilePic = Bitmap.createScaledBitmap(profilePic, 50, 50, true);
-                holder.avatarPerson.setImageBitmap(profilePic);
-
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-
-
-        } else {
-            //cardview
-            holder.cardView.setCardBackgroundColor(ContextCompat.getColor(((Activity) context), R.color.cardview_background_person));
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            lp.setMargins(10, 5, 70, 5);
-            holder.cardView.setLayoutParams(lp);
-            // cardview text color
-            holder.messageContent.setTextColor(ContextCompat.getColor(((Activity) context), R.color.conversation_chat_text_color_person));
-            holder.messageTime.setTextColor(ContextCompat.getColor(((Activity) context), R.color.conversation_chat_text_color_person));
-            holder.sender.setTextColor(ContextCompat.getColor(((Activity) context), R.color.conversation_chat_text_color_person));
-            // set profile picture
-            try {
-                holder.avatarPerson.setImageBitmap(friendPicture);
-            } catch (NullPointerException e) {
-                System.out.println(e.toString());
-            }
-
-
         }
     }
 
