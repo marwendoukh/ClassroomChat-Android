@@ -7,6 +7,12 @@ package com.classroomchat.marwen.classroomchat.entity;
 public class Friend {
     String friendName, uuid, profilePicture;
 
+    public Friend() {
+        this.friendName = "";
+        this.uuid = "";
+        this.profilePicture = "";
+    }
+
     public Friend(String friendName, String uuid, String profilePicture) {
         this.friendName = friendName;
         this.uuid = uuid;
