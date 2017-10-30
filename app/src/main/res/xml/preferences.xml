@@ -10,28 +10,28 @@
             android:inputType="text"
             android:key="@string/message1_1"
             android:summary="@string/settings_description_message_1"
-            android:title="@string/message1_1" />
+            android:title="@string/message1" />
 
         <EditTextPreference
             android:defaultValue="@string/message2_1"
             android:inputType="text"
             android:key="@string/message2_1"
             android:summary="@string/settings_description_message_2"
-            android:title="@string/message2_1" />
+            android:title="@string/message2" />
 
         <EditTextPreference
             android:defaultValue="@string/message3_1"
             android:inputType="text"
             android:key="@string/message3_1"
             android:summary="@string/settings_description_message_3"
-            android:title="@string/message3_1" />
+            android:title="@string/message3" />
 
         <EditTextPreference
             android:defaultValue="@string/message4_1"
             android:inputType="text"
             android:key="@string/message4_1"
             android:summary="@string/settings_description_message_4"
-            android:title="@string/message4_1" />
+            android:title="@string/message4" />
 
     </PreferenceCategory>
 
@@ -45,28 +45,28 @@
             android:inputType="text"
             android:key="@string/message1_2"
             android:summary="@string/settings_description_message_1"
-            android:title="@string/message1_2" />
+            android:title="@string/message1" />
 
         <EditTextPreference
             android:defaultValue="@string/message2_2"
             android:inputType="text"
             android:key="@string/message2_2"
             android:summary="@string/settings_description_message_2"
-            android:title="@string/message2_2" />
+            android:title="@string/message2" />
 
         <EditTextPreference
             android:defaultValue="@string/message3_2"
             android:inputType="text"
             android:key="@string/message3_2"
             android:summary="@string/settings_description_message_3"
-            android:title="@string/message3_2" />
+            android:title="@string/message3" />
 
         <EditTextPreference
             android:defaultValue="@string/message4_2"
             android:inputType="text"
             android:key="@string/message4_2"
             android:summary="@string/settings_description_message_4"
-            android:title="@string/message4_2" />
+            android:title="@string/message4" />
 
     </PreferenceCategory>
 
@@ -80,28 +80,28 @@
             android:inputType="text"
             android:key="@string/message1_3"
             android:summary="@string/settings_description_message_1"
-            android:title="@string/message1_3" />
+            android:title="@string/message1" />
 
         <EditTextPreference
             android:defaultValue="@string/message2_3"
             android:inputType="text"
             android:key="@string/message2_3"
             android:summary="@string/settings_description_message_2"
-            android:title="@string/message2_3" />
+            android:title="@string/message2" />
 
         <EditTextPreference
             android:defaultValue="@string/message3_3"
             android:inputType="text"
             android:key="@string/message3_3"
             android:summary="@string/settings_description_message_3"
-            android:title="@string/message3_3" />
+            android:title="@string/message3" />
 
         <EditTextPreference
             android:defaultValue="@string/message4_3"
             android:inputType="text"
             android:key="@string/message4_3"
             android:summary="@string/settings_description_message_4"
-            android:title="@string/message4_3" />
+            android:title="@string/message4" />
 
     </PreferenceCategory>
 

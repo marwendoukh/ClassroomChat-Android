@@ -27,6 +27,11 @@
 
     <!-- Settings -->
 
+    <string name="message1">message 1</string>
+    <string name="message2">message 2</string>
+    <string name="message3">message 3</string>
+    <string name="message4">message 4</string>
+
     <!-- menu 1 -->
     <string name="settings_configure_messages_menu1">Configure your custom chat messages for menu 1</string>
     <string name="message1_1">message11</string>
