@@ -100,6 +100,11 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
      * Member object for the chat services
      */
     private BluetoothChatService mChatService = null;
+    // last shake time
+    private long lastUpdate;
+    private float last_x, last_y, last_z, x, y, z;
+    //messages menus
+    private Integer messagesMenu = 1;
     /**
      * The Handler that gets information back from the BluetoothChatService
      */
@@ -172,9 +177,6 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
             }
         }
     };
-    // last shake time
-    private long lastUpdate;
-    private float last_x, last_y, last_z, x, y, z;
 
     public static String encodeToBase64(Bitmap image, Bitmap.CompressFormat compressFormat, int quality) {
 
@@ -421,23 +423,20 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
 
         //detect phone shake
         if (detectPhoneShake(event))
-            Toast.makeText(getContext(), "shake detected w/ speed: ", Toast.LENGTH_SHORT).show();
-
-
-
+            showNextMessagesMenu();
 
 
         // X axis
         if (Math.round(event.values[1]) >= 10) {
             System.out.println("msg1");
-            sendMessage(sharedPref.getString(SettingsActivity.MESSAGE1, "msg1"));
+            sendMessage(sharedPref.getString(SettingsActivity.MESSAGE1 + messagesMenu, "msg1"));
             sleep();
         }
 
         // Z axis
         if (Math.round(event.values[0]) >= 10) {
             System.out.println("msg2");
-            sendMessage(sharedPref.getString(SettingsActivity.MESSAGE2, "msg2"));
+            sendMessage(sharedPref.getString(SettingsActivity.MESSAGE2 + messagesMenu, "msg2"));
             sleep();
 
 
@@ -445,7 +444,7 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
 
         // Z axis
         if (Math.round(event.values[0]) <= -10) {
-            sendMessage(sharedPref.getString(SettingsActivity.MESSAGE3, "msg3"));
+            sendMessage(sharedPref.getString(SettingsActivity.MESSAGE3 + messagesMenu, "msg3"));
             sleep();
 
 
@@ -453,7 +452,7 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
 
         // X axis
         if (Math.round(event.values[1]) <= -10) {
-            sendMessage(sharedPref.getString(SettingsActivity.MESSAGE4, "msg4"));
+            sendMessage(sharedPref.getString(SettingsActivity.MESSAGE4 + messagesMenu, "msg4"));
             sleep();
 
 
@@ -491,6 +490,27 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
     }
 
 
+    // show next Messages menu
+    public void showNextMessagesMenu() {
+        Snackbar
+                .make(getView(), R.string.shake_detected, Snackbar.LENGTH_SHORT)
+                .show();
+
+
+        if (messagesMenu == 3) {
+            messagesMenu = 1;
+        } else {
+            messagesMenu++;
+        }
+
+        // change messages guide content
+        messageGuide1.setText(sharedPref.getString(SettingsActivity.MESSAGE1 + messagesMenu, "msg1"));
+        messageGuide2.setText(sharedPref.getString(SettingsActivity.MESSAGE2 + messagesMenu, "msg2"));
+        messageGuide3.setText(sharedPref.getString(SettingsActivity.MESSAGE3 + messagesMenu, "msg3"));
+        messageGuide4.setText(sharedPref.getString(SettingsActivity.MESSAGE4 + messagesMenu, "msg4"));
+
+
+    }
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int i) {
@@ -526,10 +546,10 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
     }
 
     private void setupMessagesGuide() {
-        messageGuide1.setText(sharedPref.getString(SettingsActivity.MESSAGE1, "msg1"));
-        messageGuide2.setText(sharedPref.getString(SettingsActivity.MESSAGE2, "msg2"));
-        messageGuide3.setText(sharedPref.getString(SettingsActivity.MESSAGE3, "msg3"));
-        messageGuide4.setText(sharedPref.getString(SettingsActivity.MESSAGE4, "msg4"));
+        messageGuide1.setText(sharedPref.getString(SettingsActivity.MESSAGE1 + messagesMenu, "msg1"));
+        messageGuide2.setText(sharedPref.getString(SettingsActivity.MESSAGE2 + messagesMenu, "msg2"));
+        messageGuide3.setText(sharedPref.getString(SettingsActivity.MESSAGE3 + messagesMenu, "msg3"));
+        messageGuide4.setText(sharedPref.getString(SettingsActivity.MESSAGE4 + messagesMenu, "msg4"));
 
     }
 

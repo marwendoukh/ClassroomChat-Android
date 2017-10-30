@@ -46,5 +46,6 @@
     <string name="intro_fourth_title">Choose your nearby friend</string>
     <string name="intro_fourth_description">Choose your nearby friend and communicate with him using Bluetooth</string>
     <string name="your_name">Your name</string>
+    <string name="shake_detected">Shake detected , next menu is shown</string>
 
 </resources>
