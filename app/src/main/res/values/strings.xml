@@ -26,15 +26,30 @@
     <string name="settings">Settings</string>
 
     <!-- Settings -->
-    <string name="settings_configure_messages">Configure your custom chat messages</string>
-    <string name="message1">message1</string>
-    <string name="message2">message2</string>
-    <string name="message3">message3</string>
-    <string name="message4">message4</string>
+
+    <!-- menu 1 -->
+    <string name="settings_configure_messages_menu1">Configure your custom chat messages for menu 1</string>
+    <string name="message1_1">message11</string>
+    <string name="message2_1">message21</string>
+    <string name="message3_1">message31</string>
+    <string name="message4_1">message41</string>
     <string name="settings_description_message_1">Choose the message to send when rotation the phone to the front</string>
     <string name="settings_description_message_2">Choose the message to send when rotation the phone to the left</string>
     <string name="settings_description_message_3">Choose the message to send when rotation the phone to the right</string>
     <string name="settings_description_message_4">Choose the message to send when rotation the phone to the down</string>
+
+    <!-- menu 2 -->
+    <string name="settings_configure_messages_menu2">Configure your custom chat messages for menu 2</string>
+    <string name="message1_2">message12</string>
+    <string name="message2_2">message22</string>
+    <string name="message3_2">message32</string>
+    <string name="message4_2">message42</string>
+    <!-- menu 3 -->
+    <string name="settings_configure_messages_menu3">Configure your custom chat messages for menu 3</string>
+    <string name="message1_3">message13</string>
+    <string name="message2_3">message23</string>
+    <string name="message3_3">message33</string>
+    <string name="message4_3">message43</string>
 
     <!-- App intro -->
     <string name="intro_first_title">Rotate to send</string>

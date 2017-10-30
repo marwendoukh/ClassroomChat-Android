@@ -26,11 +26,11 @@
     <string name="settings">Parametres</string>
 
     <!-- Settings -->
-    <string name="settings_configure_messages">Configurer vos messages personnalisés</string>
-    <string name="message1">message1</string>
-    <string name="message2">message2</string>
-    <string name="message3">message3</string>
-    <string name="message4">message4</string>
+    <string name="settings_configure_messages_menu1">Configurer vos messages personnalisés</string>
+    <string name="message1_1">message1</string>
+    <string name="message2_1">message2</string>
+    <string name="message3_1">message3</string>
+    <string name="message4_1">message4</string>
     <string name="settings_description_message_1">Choisissez le message à envoyer lors de la rotation du téléphone à l\'avant</string>
     <string name="settings_description_message_2">Choisissez le message à envoyer lors de la rotation du téléphone à gauche</string>
     <string name="settings_description_message_3">Choisissez le message à envoyer lors de la rotation du téléphone à droite</string>

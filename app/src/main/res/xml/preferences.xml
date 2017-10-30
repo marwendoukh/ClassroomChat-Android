@@ -1,37 +1,109 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Menu 1-->
     <PreferenceCategory
         android:key="pref_messages_settings"
-        android:title="@string/settings_configure_messages">
-
+        android:title="@string/settings_configure_messages_menu1">
 
         <EditTextPreference
-            android:defaultValue="@string/message1"
+            android:defaultValue="@string/message1_1"
             android:inputType="text"
-            android:key="@string/message1"
+            android:key="@string/message1_1"
             android:summary="@string/settings_description_message_1"
-            android:title="@string/message1" />
+            android:title="@string/message1_1" />
 
         <EditTextPreference
-            android:defaultValue="@string/message2"
+            android:defaultValue="@string/message2_1"
             android:inputType="text"
-            android:key="@string/message2"
+            android:key="@string/message2_1"
             android:summary="@string/settings_description_message_2"
-            android:title="@string/message2" />
+            android:title="@string/message2_1" />
 
         <EditTextPreference
-            android:defaultValue="@string/message3"
+            android:defaultValue="@string/message3_1"
             android:inputType="text"
-            android:key="@string/message3"
+            android:key="@string/message3_1"
             android:summary="@string/settings_description_message_3"
-            android:title="@string/message3" />
+            android:title="@string/message3_1" />
 
         <EditTextPreference
-            android:defaultValue="@string/message4"
+            android:defaultValue="@string/message4_1"
             android:inputType="text"
-            android:key="@string/message4"
+            android:key="@string/message4_1"
             android:summary="@string/settings_description_message_4"
-            android:title="@string/message4" />
+            android:title="@string/message4_1" />
 
     </PreferenceCategory>
+
+    <!-- Menu 2-->
+    <PreferenceCategory
+        android:key="pref_messages_settings"
+        android:title="@string/settings_configure_messages_menu2">
+
+        <EditTextPreference
+            android:defaultValue="@string/message1_2"
+            android:inputType="text"
+            android:key="@string/message1_2"
+            android:summary="@string/settings_description_message_1"
+            android:title="@string/message1_2" />
+
+        <EditTextPreference
+            android:defaultValue="@string/message2_2"
+            android:inputType="text"
+            android:key="@string/message2_2"
+            android:summary="@string/settings_description_message_2"
+            android:title="@string/message2_2" />
+
+        <EditTextPreference
+            android:defaultValue="@string/message3_2"
+            android:inputType="text"
+            android:key="@string/message3_2"
+            android:summary="@string/settings_description_message_3"
+            android:title="@string/message3_2" />
+
+        <EditTextPreference
+            android:defaultValue="@string/message4_2"
+            android:inputType="text"
+            android:key="@string/message4_2"
+            android:summary="@string/settings_description_message_4"
+            android:title="@string/message4_2" />
+
+    </PreferenceCategory>
+
+    <!-- Menu 3-->
+    <PreferenceCategory
+        android:key="pref_messages_settings"
+        android:title="@string/settings_configure_messages_menu1">
+
+        <EditTextPreference
+            android:defaultValue="@string/message1_3"
+            android:inputType="text"
+            android:key="@string/message1_3"
+            android:summary="@string/settings_description_message_1"
+            android:title="@string/message1_3" />
+
+        <EditTextPreference
+            android:defaultValue="@string/message2_3"
+            android:inputType="text"
+            android:key="@string/message2_3"
+            android:summary="@string/settings_description_message_2"
+            android:title="@string/message2_3" />
+
+        <EditTextPreference
+            android:defaultValue="@string/message3_3"
+            android:inputType="text"
+            android:key="@string/message3_3"
+            android:summary="@string/settings_description_message_3"
+            android:title="@string/message3_3" />
+
+        <EditTextPreference
+            android:defaultValue="@string/message4_3"
+            android:inputType="text"
+            android:key="@string/message4_3"
+            android:summary="@string/settings_description_message_4"
+            android:title="@string/message4_3" />
+
+    </PreferenceCategory>
+
 </PreferenceScreen>
 
