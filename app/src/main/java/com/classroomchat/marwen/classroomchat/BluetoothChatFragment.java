@@ -64,6 +64,8 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
     // Intent request codes
     private static final int REQUEST_CONNECT_DEVICE_SECURE = 1;
     private static final int REQUEST_ENABLE_BT = 2;
+    // shake threshold
+    private static final int SHAKE_THRESHOLD = 700;
     private final String PROFILE_PICTURE = "profile_picture";
     private final String USER_NAME = "user_name";
     SharedPreferences sharedPref;
@@ -81,7 +83,6 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
      * Name of the connected device
      */
     private String mConnectedDeviceName = null;
-
     /**
      * Array adapter for the conversation thread
      */
@@ -171,6 +172,9 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
             }
         }
     };
+    // last shake time
+    private long lastUpdate;
+    private float last_x, last_y, last_z, x, y, z;
 
     public static String encodeToBase64(Bitmap image, Bitmap.CompressFormat compressFormat, int quality) {
 
@@ -414,6 +418,15 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
     @Override
     public final void onSensorChanged(SensorEvent event) {
 
+
+        //detect phone shake
+        if (detectPhoneShake(event))
+            Toast.makeText(getContext(), "shake detected w/ speed: ", Toast.LENGTH_SHORT).show();
+
+
+
+
+
         // X axis
         if (Math.round(event.values[1]) >= 10) {
             System.out.println("msg1");
@@ -448,6 +461,36 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
 
 
     }
+
+    //detect phone shake
+
+
+    public boolean detectPhoneShake(SensorEvent event) {
+        long curTime = System.currentTimeMillis();
+        // only allow one update every 100ms.
+        if ((curTime - lastUpdate) > 100) {
+            long diffTime = (curTime - lastUpdate);
+            lastUpdate = curTime;
+
+            x = event.values[SensorManager.DATA_X];
+            y = event.values[SensorManager.DATA_Y];
+            z = event.values[SensorManager.DATA_Z];
+
+            float speed = Math.abs(x + y + z - last_x - last_y - last_z) / diffTime * 10000;
+
+
+            last_x = x;
+            last_y = y;
+            last_z = z;
+
+            if (speed > SHAKE_THRESHOLD) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int i) {
