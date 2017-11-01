@@ -283,6 +283,34 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
             }
         });
 
+        // send message when message guide is clicked
+        messageGuide1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendMessage(messageGuide1.getText().toString());
+            }
+        });
+
+        messageGuide2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendMessage(messageGuide2.getText().toString());
+            }
+        });
+
+        messageGuide3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendMessage(messageGuide3.getText().toString());
+            }
+        });
+
+        messageGuide4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendMessage(messageGuide4.getText().toString());
+            }
+        });
     }
 
     /**
@@ -323,6 +351,7 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
      * @param message A string of text to send.
      */
     private void sendMessage(String message) {
+        Log.d("chat", "message to send " + message);
         // Check that we're actually connected before trying anything
         if (mChatService.getState() != BluetoothChatService.STATE_CONNECTED) {
 
