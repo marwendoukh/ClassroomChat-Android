@@ -73,7 +73,7 @@
     <!-- Menu 3-->
     <PreferenceCategory
         android:key="pref_messages_settings"
-        android:title="@string/settings_configure_messages_menu1">
+        android:title="@string/settings_configure_messages_menu3">
 
         <EditTextPreference
             android:defaultValue="@string/message1_3"
