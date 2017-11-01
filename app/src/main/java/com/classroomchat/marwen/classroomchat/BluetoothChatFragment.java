@@ -615,7 +615,6 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
         alertDialog.setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
-                sendMessage(textDialog.getText().toString());
             }
         });
 
@@ -627,7 +626,7 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
 
         try {
 
-            final Uri imageUri = Uri.parse(sharedPref.getString(PROFILE_PICTURE, ""));
+            final Uri imageUri = Uri.parse(sharedPref.getString(PROFILE_PICTURE, Uri.parse("android.resource://com.classroomchat.marwen.classroomchat/drawable/ic_person_black_24dp").toString()));
             final InputStream imageStream = getActivity().getContentResolver().openInputStream(imageUri);
             Bitmap profilePic = BitmapFactory.decodeStream(imageStream);
             // scale image to fit imageButton
