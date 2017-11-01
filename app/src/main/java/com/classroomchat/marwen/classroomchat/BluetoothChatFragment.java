@@ -35,6 +35,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -74,7 +75,7 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
     private ImageView status_connected, status_not_connected;
     private TextView connected_to;
     private LinearLayout messagesGuide;
-    private TextView messageGuide1, messageGuide2, messageGuide3, messageGuide4;
+    private Button messageGuide1, messageGuide2, messageGuide3, messageGuide4;
     private FloatingActionButton fab;
     // sensor
     private SensorManager mSensorManager;
@@ -269,10 +270,10 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
         status_not_connected = (ImageView) view.findViewById(R.id.status_not_connected);
         connected_to = (TextView) view.findViewById(R.id.you_are_speaking_to);
         messagesGuide = (LinearLayout) view.findViewById(R.id.messages_guide);
-        messageGuide1 = (TextView) view.findViewById(R.id.message_guide_1);
-        messageGuide2 = (TextView) view.findViewById(R.id.message_guide_2);
-        messageGuide3 = (TextView) view.findViewById(R.id.message_guide_3);
-        messageGuide4 = (TextView) view.findViewById(R.id.message_guide_4);
+        messageGuide1 = (Button) view.findViewById(R.id.message_guide_1);
+        messageGuide2 = (Button) view.findViewById(R.id.message_guide_2);
+        messageGuide3 = (Button) view.findViewById(R.id.message_guide_3);
+        messageGuide4 = (Button) view.findViewById(R.id.message_guide_4);
         fab = (FloatingActionButton) view.findViewById(R.id.send_typed_message_fab);
 
         fab.setOnClickListener(new View.OnClickListener() {
