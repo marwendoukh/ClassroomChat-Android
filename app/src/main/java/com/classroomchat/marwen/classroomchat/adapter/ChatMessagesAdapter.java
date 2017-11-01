@@ -76,8 +76,13 @@ public class ChatMessagesAdapter extends RecyclerView.Adapter<ChatMessagesAdapte
         //receive friend name and profile picture
         if (establishingConnection && !chatMessages.get(position).getSender().equals("Me")) {
             String msg = chatMessages.get(position).getMessageContent();
-            friendName = msg.substring(0, msg.indexOf("PICTURE") - 1);
-            friendPicture = decodeBase64(msg.substring(msg.indexOf("PICTURE") + 7));
+            if (msg.substring(0, 1).equals("1")) {
+                friendName = msg.substring(1, msg.indexOf("PICTURE") - 1);
+                friendPicture = decodeBase64(msg.substring(msg.indexOf("PICTURE") + 7));
+            } else {
+                friendName = msg.substring(1);
+                friendPicture = decodeBase64(Uri.parse("android.resource://" + context.getPackageName() + "/drawable/" + "ic_person_black_24dp").toString());
+            }
             establishingConnection = false;
 
         } else if (!establishingConnection) {

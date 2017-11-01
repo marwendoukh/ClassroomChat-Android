@@ -30,7 +30,7 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:contentDescription="Avatar"
-                    android:src="@drawable/ic_person" />
+                    android:src="@drawable/ic_person_black_24dp" />
 
 
             <TextView

@@ -46,6 +46,19 @@ public class SetUpProfile extends AppCompatActivity {
                 startActivityForResult(photoPickerIntent, SELECT_PHOTO);
             }
         });
+
+
+        //test
+        try {
+            final InputStream imageStream = getContentResolver().openInputStream(Uri.parse("android.resource://" + getApplicationContext().getPackageName() + "/drawable/" + "ic_person_black_24dp"));
+            Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+            // scale image to fit imageButton
+            selectedImage = Bitmap.createScaledBitmap(selectedImage, 150, 150, true);
+            userProfilePic.setImageBitmap(selectedImage);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            System.out.println("execption " + e.toString());
+        }
     }
 
 
@@ -92,6 +105,7 @@ public class SetUpProfile extends AppCompatActivity {
                 // save user name
                 sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                 sharedPref.edit().putString(USER_NAME, userName.getText().toString()).apply();
+                // start chat activity
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 return true;
             }

@@ -625,16 +625,23 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
     private void establishConnection() {
 
         try {
+            String profilePicURI = sharedPref.getString(PROFILE_PICTURE, "profilePictureNotFound");
 
-            final Uri imageUri = Uri.parse(sharedPref.getString(PROFILE_PICTURE, Uri.parse("android.resource://com.classroomchat.marwen.classroomchat/drawable/ic_person_black_24dp").toString()));
-            final InputStream imageStream = getActivity().getContentResolver().openInputStream(imageUri);
-            Bitmap profilePic = BitmapFactory.decodeStream(imageStream);
-            // scale image to fit imageButton
-            profilePic = Bitmap.createScaledBitmap(profilePic, 50, 50, true);
-            //transfert profile picture and  name
-            sendMessage(sharedPref.getString(USER_NAME, "") + "PICTURE" + encodeToBase64(profilePic, Bitmap.CompressFormat.JPEG, 0));
+            //if profile picture found
+            if (!profilePicURI.equals("profilePictureNotFound")) {
+                final Uri imageUri = Uri.parse(sharedPref.getString(PROFILE_PICTURE, Uri.parse("android.resource://com.classroomchat.marwen.classroomchat/drawable/ic_person_black_24dp").toString()));
 
+                final InputStream imageStream = getActivity().getContentResolver().openInputStream(imageUri);
+                Bitmap profilePic = BitmapFactory.decodeStream(imageStream);
+                // scale image to fit imageButton
+                profilePic = Bitmap.createScaledBitmap(profilePic, 50, 50, true);
+                //transfert profile picture and  name
+                sendMessage("1" + sharedPref.getString(USER_NAME, "") + "PICTURE" + encodeToBase64(profilePic, Bitmap.CompressFormat.JPEG, 0));
 
+            } else {
+                sendMessage("0" + sharedPref.getString(USER_NAME, ""));
+
+            }
             // pause to separate msgs
             try {
                 Thread.sleep(1000);
