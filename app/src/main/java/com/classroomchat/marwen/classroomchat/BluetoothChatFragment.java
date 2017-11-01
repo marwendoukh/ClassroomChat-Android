@@ -37,6 +37,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -76,6 +77,7 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
     private TextView connected_to;
     private LinearLayout messagesGuide;
     private Button messageGuide1, messageGuide2, messageGuide3, messageGuide4;
+    private ImageButton showNextMessagesMenu;
     private FloatingActionButton fab;
     // sensor
     private SensorManager mSensorManager;
@@ -274,6 +276,7 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
         messageGuide2 = (Button) view.findViewById(R.id.message_guide_2);
         messageGuide3 = (Button) view.findViewById(R.id.message_guide_3);
         messageGuide4 = (Button) view.findViewById(R.id.message_guide_4);
+        showNextMessagesMenu = (ImageButton) view.findViewById(R.id.show_next_messaging_menu);
         fab = (FloatingActionButton) view.findViewById(R.id.send_typed_message_fab);
 
         fab.setOnClickListener(new View.OnClickListener() {
@@ -309,6 +312,15 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
             @Override
             public void onClick(View view) {
                 sendMessage(messageGuide4.getText().toString());
+            }
+        });
+
+        // change next messages menu
+
+        showNextMessagesMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showNextMessagesMenu();
             }
         });
     }

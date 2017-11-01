@@ -61,7 +61,9 @@
                 android:id="@+id/message_guide_4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Message4" />
+                android:background="@color/colorPrimary"
+                android:text="Message4"
+                android:textColor="#FFFFFF" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -79,7 +81,9 @@
                     android:id="@+id/message_guide_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Message2" />
+                    android:background="@color/colorPrimary"
+                    android:text="Message2"
+                    android:textColor="#FFFFFF" />
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -87,9 +91,11 @@
                     android:contentDescription="left rotation"
                     android:src="@drawable/ic_keyboard_arrow" />
 
-                <ImageView
+                <ImageButton
+                    android:id="@+id/show_next_messaging_menu"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:background="#FFFFFFFF"
                     android:contentDescription="phone"
                     android:src="@drawable/ic_phone_android" />
 
@@ -104,7 +110,9 @@
                     android:id="@+id/message_guide_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Message3" />
+                    android:background="@color/colorPrimary"
+                    android:text="Message3"
+                    android:textColor="#FFFFFF" />
 
             </LinearLayout>
 
@@ -119,7 +127,9 @@
                 android:id="@+id/message_guide_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Message1" />
+                android:background="@color/colorPrimary"
+                android:text="Message1"
+                android:textColor="#FFFFFF" />
 
 
         </LinearLayout>
