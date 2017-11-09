@@ -33,6 +33,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -58,6 +59,8 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
     // Intent request codes
     private static final int REQUEST_CONNECT_DEVICE_SECURE = 1;
     private static final int REQUEST_ENABLE_BT = 2;
+    // shake threshold
+    private static final int SHAKE_THRESHOLD = 700;
     SharedPreferences sharedPref;
     // Layout Views
     private RecyclerView mConversationRecyclerView;
@@ -65,10 +68,16 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
     private TextView connected_to;
     private LinearLayout messagesGuide;
     private Button messageGuide1, messageGuide2, messageGuide3, messageGuide4;
+    private ImageButton showNextMessagesMenu;
     private FloatingActionButton fab;
     // sensor
     private SensorManager mSensorManager;
     private Sensor mLight;
+    // last shake time
+    private long lastUpdate;
+    private float last_x, last_y, last_z, x, y, z;
+    //messages menus
+    private Integer messagesMenu = 1;
     /**
      * Name of the connected device
      */
@@ -251,6 +260,7 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
         messageGuide2 = (Button) view.findViewById(R.id.message_guide_2);
         messageGuide3 = (Button) view.findViewById(R.id.message_guide_3);
         messageGuide4 = (Button) view.findViewById(R.id.message_guide_4);
+        showNextMessagesMenu = (ImageButton) view.findViewById(R.id.show_next_messaging_menu);
         fab = (FloatingActionButton) view.findViewById(R.id.send_typed_message_fab);
 
         fab.setOnClickListener(new View.OnClickListener() {
@@ -291,6 +301,14 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
         });
 
 
+        // change next messages menu
+
+        showNextMessagesMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showNextMessagesMenu();
+            }
+        });
     }
 
     /**
@@ -429,6 +447,12 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
     @Override
     public final void onSensorChanged(SensorEvent event) {
 
+
+        //detect phone shake
+        if (detectPhoneShake(event))
+            showNextMessagesMenu();
+
+
         // X axis
         if (Math.round(event.values[1]) >= 10) {
             System.out.println("msg1");
@@ -463,6 +487,60 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
 
 
     }
+
+
+    //detect phone shake
+
+
+    public boolean detectPhoneShake(SensorEvent event) {
+        long curTime = System.currentTimeMillis();
+        // only allow one update every 100ms.
+        if ((curTime - lastUpdate) > 100) {
+            long diffTime = (curTime - lastUpdate);
+            lastUpdate = curTime;
+
+            x = event.values[SensorManager.DATA_X];
+            y = event.values[SensorManager.DATA_Y];
+            z = event.values[SensorManager.DATA_Z];
+
+            float speed = Math.abs(x + y + z - last_x - last_y - last_z) / diffTime * 10000;
+
+
+            last_x = x;
+            last_y = y;
+            last_z = z;
+
+            if (speed > SHAKE_THRESHOLD) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    // show next Messages menu
+    public void showNextMessagesMenu() {
+        Snackbar
+                .make(getView(), "shake detected", Snackbar.LENGTH_SHORT)
+                .show();
+
+
+        if (messagesMenu == 3) {
+            messagesMenu = 1;
+        } else {
+            messagesMenu++;
+        }
+
+        // change messages guide content
+        messageGuide1.setText(sharedPref.getString(SettingsActivity.MESSAGE1 + messagesMenu, "msg1"));
+        messageGuide2.setText(sharedPref.getString(SettingsActivity.MESSAGE2 + messagesMenu, "msg2"));
+        messageGuide3.setText(sharedPref.getString(SettingsActivity.MESSAGE3 + messagesMenu, "msg3"));
+        messageGuide4.setText(sharedPref.getString(SettingsActivity.MESSAGE4 + messagesMenu, "msg4"));
+
+
+    }
+
+
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int i) {
