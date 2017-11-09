@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <LinearLayout
     android:layout_width="match_parent"
@@ -57,11 +57,13 @@
             android:orientation="vertical"
             android:visibility="gone">
 
-            <TextView
+            <Button
                 android:id="@+id/message_guide_4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Message4" />
+                android:background="@color/colorPrimary"
+                android:text="Message4"
+                android:textColor="#FFFFFF" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -75,11 +77,13 @@
                 android:layout_height="wrap_content"
                 android:gravity="center">
 
-                <TextView
+                <Button
                     android:id="@+id/message_guide_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Message2" />
+                    android:background="@color/colorPrimary"
+                    android:text="Message2"
+                    android:textColor="#FFFFFF" />
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -87,9 +91,11 @@
                     android:contentDescription="left rotation"
                     android:src="@drawable/ic_keyboard_arrow" />
 
-                <ImageView
+                <ImageButton
+                    android:id="@+id/show_next_messaging_menu"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:background="#FFFFFFFF"
                     android:contentDescription="phone"
                     android:src="@drawable/ic_phone_android" />
 
@@ -100,11 +106,13 @@
                     android:rotation="180"
                     android:src="@drawable/ic_keyboard_arrow" />
 
-                <TextView
+                <Button
                     android:id="@+id/message_guide_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Message3" />
+                    android:background="@color/colorPrimary"
+                    android:text="Message3"
+                    android:textColor="#FFFFFF" />
 
             </LinearLayout>
 
@@ -115,15 +123,16 @@
                 android:rotation="270"
                 android:src="@drawable/ic_keyboard_arrow" />
 
-            <TextView
+            <Button
                 android:id="@+id/message_guide_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Message1" />
+                android:background="@color/colorPrimary"
+                android:text="Message1"
+                android:textColor="#FFFFFF" />
 
 
         </LinearLayout>
-
         <!-- Chat Messages -->
 
         <android.support.v7.widget.RecyclerView
@@ -144,8 +153,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
         android:layout_margin="20dp"
-        app:backgroundTint="@color/colorPrimary"
         android:src="@drawable/ic_edit"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        app:backgroundTint="@color/colorPrimary" />
 
 </android.support.design.widget.CoordinatorLayout>
