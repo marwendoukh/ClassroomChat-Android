@@ -13,8 +13,7 @@
         android:layout_gravity="center_horizontal"
         android:background="#FFFFFFFF"
         android:backgroundTint="#00000000"
-        android:src="@drawable/ic_person_black_24dp"
-        android:tint="#000000" />
+        android:src="@drawable/ic_person_setup_account" />
 
     <EditText
         android:id="@+id/name_user_profile_setup"

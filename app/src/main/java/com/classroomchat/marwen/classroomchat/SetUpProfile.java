@@ -107,6 +107,7 @@ public class SetUpProfile extends AppCompatActivity {
                 sharedPref.edit().putString(USER_NAME, userName.getText().toString()).apply();
                 // start chat activity
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                this.finish();
                 return true;
             }
         }
