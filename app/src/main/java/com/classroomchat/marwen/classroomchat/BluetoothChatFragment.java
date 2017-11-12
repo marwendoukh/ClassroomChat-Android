@@ -8,12 +8,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -49,8 +47,6 @@ import com.classroomchat.marwen.classroomchat.utils.BluetoothChatService;
 import com.classroomchat.marwen.classroomchat.utils.Constants;
 
 import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -624,24 +620,12 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
 
     private void establishConnection() {
 
-        try {
             String profilePicURI = sharedPref.getString(PROFILE_PICTURE, "profilePictureNotFound");
 
-            //if profile picture found
-            if (!profilePicURI.equals("profilePictureNotFound")) {
-                final Uri imageUri = Uri.parse(sharedPref.getString(PROFILE_PICTURE, Uri.parse("android.resource://com.classroomchat.marwen.classroomchat/drawable/ic_person_black_24dp").toString()));
 
-                final InputStream imageStream = getActivity().getContentResolver().openInputStream(imageUri);
-                Bitmap profilePic = BitmapFactory.decodeStream(imageStream);
-                // scale image to fit imageButton
-                profilePic = Bitmap.createScaledBitmap(profilePic, 50, 50, true);
-                //transfert profile picture and  name
-                sendMessage("1" + sharedPref.getString(USER_NAME, "") + "PICTURE" + encodeToBase64(profilePic, Bitmap.CompressFormat.JPEG, 0));
+        sendMessage(sharedPref.getString(USER_NAME, ""));
 
-            } else {
-                sendMessage("0" + sharedPref.getString(USER_NAME, ""));
 
-            }
             // pause to separate msgs
             try {
                 Thread.sleep(1000);
@@ -649,10 +633,8 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
                 e.printStackTrace();
             }
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
 
     }
+
+
 }
