@@ -134,7 +134,7 @@ public class DeviceListActivity extends Activity {
 
         // Initialize array adapters. One for already paired devices and
         // one for newly discovered devices
-        pairedDevicesAdapter = new PairedDevicesAdapter(pairedBluetoothDevices, this);
+        pairedDevicesAdapter = new PairedDevicesAdapter(pairedBluetoothDevices, false, this);
         // Find and set up the ListView for paired devices
         pairedDevicesRecyclerView = (RecyclerView) findViewById(R.id.paired_devices);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
@@ -144,7 +144,7 @@ public class DeviceListActivity extends Activity {
 
         //// frequently contacted friends
 
-        frequentlyContactedDevicesAdapter = new PairedDevicesAdapter(frequentlyContactedDevices, this);
+        frequentlyContactedDevicesAdapter = new PairedDevicesAdapter(frequentlyContactedDevices, true, this);
         // Find and set up the ListView for paired devices
         frequentlyContactedDevicesRecyclerView = (RecyclerView) findViewById(R.id.frequently_contacted_devices);
         LinearLayoutManager mLayoutManager2 = new LinearLayoutManager(getApplicationContext());
@@ -152,7 +152,7 @@ public class DeviceListActivity extends Activity {
         frequentlyContactedDevicesRecyclerView.setAdapter(frequentlyContactedDevicesAdapter);
 
         // Find and set up the ListView for newly discovered devices
-        newPairedDevicesAdapter = new PairedDevicesAdapter(newPairedBluetoothDevices, this);
+        newPairedDevicesAdapter = new PairedDevicesAdapter(newPairedBluetoothDevices, false, this);
         newPairedDevicesRecyclerView = (RecyclerView) findViewById(R.id.new_devices);
         LinearLayoutManager mLayoutManager3 = new LinearLayoutManager(getApplicationContext());
         newPairedDevicesRecyclerView.setLayoutManager(mLayoutManager3);

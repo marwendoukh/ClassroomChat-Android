@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.classroomchat.marwen.classroomchat.DeviceListActivity;
 import com.classroomchat.marwen.classroomchat.R;
+import com.classroomchat.marwen.classroomchat.utils.LocalStorage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,10 +30,13 @@ public class PairedDevicesAdapter extends RecyclerView.Adapter<PairedDevicesAdap
 
     private List<BluetoothDevice> pairedDevices = new ArrayList<>();
     private Context context;
+    private boolean frequentlyContacted;
 
-    public PairedDevicesAdapter(List<BluetoothDevice> pairedDevices, Context context) {
+
+    public PairedDevicesAdapter(List<BluetoothDevice> pairedDevices, boolean frequentlyContacted, Context context) {
         this.pairedDevices = pairedDevices;
         this.context = context;
+        this.frequentlyContacted = frequentlyContacted;
     }
 
     @Override
@@ -43,7 +47,16 @@ public class PairedDevicesAdapter extends RecyclerView.Adapter<PairedDevicesAdap
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
-        holder.pairedDeviceName.setText(pairedDevices.get(position).getName());
+
+        // set friend name if it's frequently contacted
+        if (frequentlyContacted) {
+            holder.pairedDeviceName.setText(LocalStorage.getInstance(context).findFriendByUUID(pairedDevices.get(position).getAddress()).getFriendName());
+        } else {
+            // set device name if it's not frequently contacted
+            holder.pairedDeviceName.setText(pairedDevices.get(position).getName());
+
+        }
+
         holder.pairedDeviceAdress.setText(pairedDevices.get(position).getAddress());
 
         holder.paired_devices_cardview.setOnClickListener(new View.OnClickListener() {
