@@ -8,15 +8,31 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
+        <TextView
+            android:id="@+id/title_frequently_contacted_devices"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#666"
+            android:gravity="center_horizontal"
+            android:text="@string/title_frequently_contacted_devices"
+            android:textColor="#fff" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/frequently_contacted_devices"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:stackFromBottom="true" />
+
+
+        <TextView
         android:id="@+id/title_paired_devices"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#666"
         android:gravity="center_horizontal"
         android:text="@string/title_paired_devices"
-        android:textColor="#fff"
-        android:visibility="gone" />
+            android:textColor="#fff" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/paired_devices"

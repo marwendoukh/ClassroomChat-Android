@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.classroomchat.marwen.classroomchat.adapter.PairedDevicesAdapter;
+import com.classroomchat.marwen.classroomchat.utils.LocalStorage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,8 +48,11 @@ public class DeviceListActivity extends Activity {
     public static BluetoothAdapter mBtAdapter;
     //paired devices
     private List<BluetoothDevice> pairedBluetoothDevices = new ArrayList<>();
-    private PairedDevicesAdapter pairedDevicesAdapter;
-    private RecyclerView pairedDevicesRecyclerView;
+    //frequently Contacted devices
+    private List<BluetoothDevice> frequentlyContactedDevices = new ArrayList<>();
+
+    private PairedDevicesAdapter pairedDevicesAdapter, frequentlyContactedDevicesAdapter;
+    private RecyclerView pairedDevicesRecyclerView, frequentlyContactedDevicesRecyclerView;
     //new paired devices
     private List<BluetoothDevice> newPairedBluetoothDevices = new ArrayList<>();
     private PairedDevicesAdapter newPairedDevicesAdapter;
@@ -137,11 +141,21 @@ public class DeviceListActivity extends Activity {
         pairedDevicesRecyclerView.setLayoutManager(mLayoutManager);
         pairedDevicesRecyclerView.setAdapter(pairedDevicesAdapter);
 
+
+        //// frequently contacted friends
+
+        frequentlyContactedDevicesAdapter = new PairedDevicesAdapter(frequentlyContactedDevices, this);
+        // Find and set up the ListView for paired devices
+        frequentlyContactedDevicesRecyclerView = (RecyclerView) findViewById(R.id.frequently_contacted_devices);
+        LinearLayoutManager mLayoutManager2 = new LinearLayoutManager(getApplicationContext());
+        frequentlyContactedDevicesRecyclerView.setLayoutManager(mLayoutManager2);
+        frequentlyContactedDevicesRecyclerView.setAdapter(frequentlyContactedDevicesAdapter);
+
         // Find and set up the ListView for newly discovered devices
         newPairedDevicesAdapter = new PairedDevicesAdapter(newPairedBluetoothDevices, this);
         newPairedDevicesRecyclerView = (RecyclerView) findViewById(R.id.new_devices);
-        LinearLayoutManager mLayoutManager2 = new LinearLayoutManager(getApplicationContext());
-        newPairedDevicesRecyclerView.setLayoutManager(mLayoutManager2);
+        LinearLayoutManager mLayoutManager3 = new LinearLayoutManager(getApplicationContext());
+        newPairedDevicesRecyclerView.setLayoutManager(mLayoutManager3);
         newPairedDevicesRecyclerView.setAdapter(newPairedDevicesAdapter);
 
         // Register for broadcasts when a device is discovered
@@ -162,8 +176,14 @@ public class DeviceListActivity extends Activity {
         if (pairedDevices.size() > 0) {
             findViewById(R.id.title_paired_devices).setVisibility(View.VISIBLE);
             for (BluetoothDevice device : pairedDevices) {
-                pairedBluetoothDevices.add(device);
-                pairedDevicesAdapter.notifyDataSetChanged();
+                // device contacted earlier
+                if (LocalStorage.getInstance(getApplicationContext()).friendAlreadyExist(device.getAddress())) {
+                    frequentlyContactedDevices.add(device);
+                    frequentlyContactedDevicesAdapter.notifyDataSetChanged();
+                } else {
+                    pairedBluetoothDevices.add(device);
+                    pairedDevicesAdapter.notifyDataSetChanged();
+                }
             }
 
         } else {
