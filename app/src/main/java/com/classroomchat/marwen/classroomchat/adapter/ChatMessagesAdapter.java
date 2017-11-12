@@ -40,11 +40,9 @@ public class ChatMessagesAdapter extends RecyclerView.Adapter<ChatMessagesAdapte
     private List<ChatMessage> chatMessages = new ArrayList<>();
     private Context context;
     private SimpleDateFormat localDateFormat = new SimpleDateFormat("HH:mm:ss");
-    private Bitmap friendPicture;
     private String friendName = "";
     private SharedPreferences sharedPref;
     private boolean establishingConnection = true;
-    private boolean receivedFriendName = false;
 
 
     public ChatMessagesAdapter(List<ChatMessage> chatMessages, Context context) {
@@ -131,6 +129,7 @@ public class ChatMessagesAdapter extends RecyclerView.Adapter<ChatMessagesAdapte
                 holder.sender.setTextColor(ContextCompat.getColor(((Activity) context), R.color.conversation_chat_text_color_person));
                 // set profile picture
                 try {
+                    Bitmap friendPicture = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_person);
                     holder.avatarPerson.setImageBitmap(friendPicture);
                 } catch (NullPointerException e) {
                     System.out.println(e.toString());
