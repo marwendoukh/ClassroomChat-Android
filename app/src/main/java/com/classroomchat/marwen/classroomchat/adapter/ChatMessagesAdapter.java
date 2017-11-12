@@ -24,6 +24,8 @@ import android.widget.TextView;
 
 import com.classroomchat.marwen.classroomchat.R;
 import com.classroomchat.marwen.classroomchat.entity.ChatMessage;
+import com.classroomchat.marwen.classroomchat.entity.Friend;
+import com.classroomchat.marwen.classroomchat.utils.LocalStorage;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
@@ -36,6 +38,8 @@ import java.util.List;
 public class ChatMessagesAdapter extends RecyclerView.Adapter<ChatMessagesAdapter.MyViewHolder> {
 
 
+    // my friend (contains stats)
+    public static Friend myFriend = new Friend();
     private final String PROFILE_PICTURE = "profile_picture";
     private List<ChatMessage> chatMessages = new ArrayList<>();
     private Context context;
@@ -43,7 +47,8 @@ public class ChatMessagesAdapter extends RecyclerView.Adapter<ChatMessagesAdapte
     private String friendName = "";
     private SharedPreferences sharedPref;
     private boolean establishingConnection = true;
-
+    // last saved msg count position
+    private Integer lastCheckedMessage = 0;
 
     public ChatMessagesAdapter(List<ChatMessage> chatMessages, Context context) {
         this.chatMessages = chatMessages;
@@ -70,12 +75,11 @@ public class ChatMessagesAdapter extends RecyclerView.Adapter<ChatMessagesAdapte
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
 
-
         //receive friend name and profile picture
         if (establishingConnection && !chatMessages.get(position).getSender().equals("Me")) {
             friendName = chatMessages.get(position).getMessageContent();
-
-
+            myFriend.setFriendName(friendName);
+            LocalStorage.getInstance(context).saveOrUpdateFriend(myFriend);
             establishingConnection = false;
 
         } else if (!establishingConnection) {
@@ -84,14 +88,27 @@ public class ChatMessagesAdapter extends RecyclerView.Adapter<ChatMessagesAdapte
             // set sender name in chat UI
             if (chatMessages.get(position).getSender().equals("Me")) {
                 holder.sender.setText(chatMessages.get(position).getSender());
+                if (position > lastCheckedMessage) {
+                    // increase messages sent count
+                    LocalStorage.getInstance(context).increaseMessagesSentCount(myFriend);
+                    lastCheckedMessage = position;
+                }
             } else {
                 holder.sender.setText(friendName);
+                if (position > lastCheckedMessage) {
+                    // increase messages received count
+                    LocalStorage.getInstance(context).increaseMessagesReceivedCount(myFriend);
+                    lastCheckedMessage = position;
+                }
 
             }
+
+
             holder.messageContent.setText(chatMessages.get(position).getMessageContent());
             holder.messageTime.setText(localDateFormat.format(chatMessages.get(position).getTime()));
 
             if (chatMessages.get(position).getSender().equals("Me")) {
+
                 //cardview
                 holder.cardView.setCardBackgroundColor(ContextCompat.getColor(((Activity) context), R.color.cardview_background_me));
                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -134,6 +151,7 @@ public class ChatMessagesAdapter extends RecyclerView.Adapter<ChatMessagesAdapte
                 } catch (NullPointerException e) {
                     System.out.println(e.toString());
                 }
+
 
             }
         }

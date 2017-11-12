@@ -5,18 +5,21 @@ package com.classroomchat.marwen.classroomchat.entity;
  */
 
 public class Friend {
-    String friendName, uuid, profilePicture;
+    String friendName, uuid;
+    Integer connectionCount, messagesSentCount, messagesReceivedCount;
 
     public Friend() {
         this.friendName = "";
         this.uuid = "";
-        this.profilePicture = "";
+        this.connectionCount = 0;
+        this.messagesSentCount = 0;
+        this.messagesReceivedCount = 0;
+
     }
 
-    public Friend(String friendName, String uuid, String profilePicture) {
+    public Friend(String friendName, String uuid) {
         this.friendName = friendName;
         this.uuid = uuid;
-        this.profilePicture = profilePicture;
     }
 
     public String getFriendName() {
@@ -35,11 +38,27 @@ public class Friend {
         this.uuid = uuid;
     }
 
-    public String getProfilePicture() {
-        return profilePicture;
+    public Integer getConnectionCount() {
+        return connectionCount;
     }
 
-    public void setProfilePicture(String profilePicture) {
-        this.profilePicture = profilePicture;
+    public void setConnectionCount(Integer connectionCount) {
+        this.connectionCount = connectionCount;
+    }
+
+    public Integer getMessagesSentCount() {
+        return messagesSentCount;
+    }
+
+    public void setMessagesSentCount(Integer messagesSentCount) {
+        this.messagesSentCount = messagesSentCount;
+    }
+
+    public Integer getMessagesReceivedCount() {
+        return messagesReceivedCount;
+    }
+
+    public void setMessagesReceivedCount(Integer messagesReceivedCount) {
+        this.messagesReceivedCount = messagesReceivedCount;
     }
 }

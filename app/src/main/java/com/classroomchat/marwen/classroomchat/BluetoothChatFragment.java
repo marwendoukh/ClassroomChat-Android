@@ -104,6 +104,7 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
     private float last_x, last_y, last_z, x, y, z;
     //messages menus
     private Integer messagesMenu = 1;
+
     /**
      * The Handler that gets information back from the BluetoothChatService
      */
@@ -469,6 +470,7 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
             System.out.println("msg1");
             sendMessage(sharedPref.getString(SettingsActivity.MESSAGE1 + messagesMenu, "msg1"));
             sleep();
+
         }
 
         // Z axis

@@ -10,6 +10,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
+import com.classroomchat.marwen.classroomchat.adapter.ChatMessagesAdapter;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -99,6 +101,8 @@ public class BluetoothChatService {
      */
     public synchronized void connect(BluetoothDevice device) {
         Log.d(TAG, "connect to: " + device);
+        // set uuid for myfriend
+        ChatMessagesAdapter.myFriend.setUuid(device.getAddress());
 
         // Cancel any thread attempting to make a connection
         if (mState == STATE_CONNECTING) {

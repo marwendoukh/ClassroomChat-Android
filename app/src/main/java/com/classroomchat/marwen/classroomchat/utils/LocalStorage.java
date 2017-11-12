@@ -29,8 +29,9 @@ public class LocalStorage extends SQLiteOpenHelper {
     private static final String ID = "id";
     private static final String FRIEND_NAME = "friendName";
     private static final String BLUETOOTH_UUID = "uuid";
-    private static final String PROFILE_PICTURE = "profilePicture";
-
+    private static final String CONNECTION_COUNT = "connectionCount";
+    private static final String MESSAGES_SENT_COUNT = "messagesSentCount";
+    private static final String MESSAGES_RECEIVED_COUNT = "messagesReceivedCount";
 
     private static LocalStorage sInstance;
 
@@ -69,9 +70,11 @@ public class LocalStorage extends SQLiteOpenHelper {
         String CREATE_FRIENDS_TABLE = "CREATE TABLE " + FRIENDS +
                 "(" +
                 ID + " INTEGER PRIMARY KEY," + // Define a primary key
-                FRIEND_NAME + " VARCHAR(50)" +
-                BLUETOOTH_UUID + " VARCHAR(50)" +
-                PROFILE_PICTURE + " VARCHAR(5000)" +
+                FRIEND_NAME + " VARCHAR(50)," +
+                BLUETOOTH_UUID + " VARCHAR(50)," +
+                CONNECTION_COUNT + " INTEGER," +
+                MESSAGES_SENT_COUNT + " INTEGER," +
+                MESSAGES_RECEIVED_COUNT + " INTEGER" +
                 ")";
 
         sqLiteDatabase.execSQL(CREATE_FRIENDS_TABLE);
@@ -93,22 +96,26 @@ public class LocalStorage extends SQLiteOpenHelper {
 
 
     // add new friend
-    public Boolean saveFriend(Friend friend) {
+    public Boolean saveOrUpdateFriend(Friend friend) {
 
         Boolean success;
 
-        // Create and/or open the database for writing
-        SQLiteDatabase db = getWritableDatabase();
-
 
         if (!friendAlreadyExist(friend.getUuid())) {
+
+            // Create and/or open the database for writing
+            SQLiteDatabase db = getWritableDatabase();
             // It's a good idea to wrap our insert in a transaction. This helps with performance and ensures
             // consistency of the database.
             db.beginTransaction();
             try {
 
                 ContentValues values = new ContentValues();
+                values.put(FRIEND_NAME, friend.getFriendName());
                 values.put(BLUETOOTH_UUID, friend.getUuid());
+                values.put(CONNECTION_COUNT, 1);
+                values.put(MESSAGES_SENT_COUNT, 0);
+                values.put(MESSAGES_RECEIVED_COUNT, 0);
 
                 db.insertOrThrow(FRIENDS, null, values);
                 db.setTransactionSuccessful();
@@ -119,10 +126,31 @@ public class LocalStorage extends SQLiteOpenHelper {
             } finally {
                 db.endTransaction();
             }
-        } else
+        } else {
             // friend already exists
-            success = false;
 
+
+            // Create and/or open the database for writing
+            SQLiteDatabase db = getWritableDatabase();
+            // It's a good idea to wrap our insert in a transaction. This helps with performance and ensures
+            // consistency of the database.
+            db.beginTransaction();
+            try {
+
+
+                String FIND_FRIEND_BY_UUID_QUERY = new String("UPDATE " + FRIENDS + " SET " + FRIEND_NAME + " = \"" + friend.getFriendName() + "\" , " + CONNECTION_COUNT + " = " + CONNECTION_COUNT + "+1" + " WHERE " + BLUETOOTH_UUID + " = \"" + friend.getUuid() + "\" ;");
+
+                db.execSQL(FIND_FRIEND_BY_UUID_QUERY);
+                db.setTransactionSuccessful();
+
+            } catch (Exception e) {
+                Log.d(TAG, "Error while trying to add to database");
+                success = false;
+            } finally {
+                db.endTransaction();
+            }
+            success = false;
+        }
         return success;
     }
 
@@ -131,31 +159,34 @@ public class LocalStorage extends SQLiteOpenHelper {
     public Friend findFriendByUUID(String uuid) {
 
         Friend friend = new Friend();
-        String FIND_PLAYER_NAME_QUERY = new String("SELECT * from " + FRIENDS + " WHERE " + BLUETOOTH_UUID + "=\"" + uuid + "%\" ");
+        String FIND_FRIEND_BY_UUID_QUERY = new String("SELECT * FROM " + FRIENDS + " WHERE " + BLUETOOTH_UUID + "=\"" + uuid + "\" ");
 
 
         // "getReadableDatabase()" and "getWriteableDatabase()" return the same object (except under low
         // disk space scenarios)
         SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.rawQuery(FIND_PLAYER_NAME_QUERY, null);
+        Cursor cursor = db.rawQuery(FIND_FRIEND_BY_UUID_QUERY, null);
 
 
         try {
             if (cursor.moveToFirst()) {
-                do {
-                    friend.setFriendName(cursor.getString(cursor.getColumnIndex(FRIEND_NAME)));
-                    friend.setProfilePicture(cursor.getString(cursor.getColumnIndex(PROFILE_PICTURE)));
-                    friend.setUuid(cursor.getString(cursor.getColumnIndex(BLUETOOTH_UUID)));
 
-                } while (cursor.moveToNext());
+                    friend.setFriendName(cursor.getString(cursor.getColumnIndex(FRIEND_NAME)));
+                    friend.setUuid(cursor.getString(cursor.getColumnIndex(BLUETOOTH_UUID)));
+                friend.setConnectionCount(cursor.getInt(cursor.getColumnIndex(CONNECTION_COUNT)));
+                friend.setMessagesSentCount(cursor.getInt(cursor.getColumnIndex(MESSAGES_SENT_COUNT)));
+                friend.setMessagesReceivedCount(cursor.getInt(cursor.getColumnIndex(MESSAGES_RECEIVED_COUNT)));
+
+
             }
         } catch (Exception e) {
-            Log.d(TAG, "Error while trying to get posts from database");
+            Log.d(TAG, "Error while trying to communicate with database");
         } finally {
             if (cursor != null && !cursor.isClosed()) {
                 cursor.close();
             }
         }
+
         return friend;
     }
 
@@ -166,5 +197,54 @@ public class LocalStorage extends SQLiteOpenHelper {
             return true;
         else
             return false;
+    }
+
+
+    /// increase messages sent Count
+    public void increaseMessagesSentCount(Friend friend) {
+
+        // Create and/or open the database for writing
+        SQLiteDatabase db = getWritableDatabase();
+        // It's a good idea to wrap our insert in a transaction. This helps with performance and ensures
+        // consistency of the database.
+        db.beginTransaction();
+        try {
+
+
+            String FIND_FRIEND_BY_UUID_QUERY = new String("UPDATE " + FRIENDS + " SET " + MESSAGES_SENT_COUNT + " = " + MESSAGES_SENT_COUNT + "+1" + " WHERE " + BLUETOOTH_UUID + " = \"" + friend.getUuid() + "\" ;");
+
+            db.execSQL(FIND_FRIEND_BY_UUID_QUERY);
+            db.setTransactionSuccessful();
+
+        } catch (Exception e) {
+            Log.d(TAG, "Error while trying to add to database");
+        } finally {
+            db.endTransaction();
+        }
+
+    }
+
+
+    /// increase messages received Count
+    public void increaseMessagesReceivedCount(Friend friend) {
+
+        // Create and/or open the database for writing
+        SQLiteDatabase db = getWritableDatabase();
+        // It's a good idea to wrap our insert in a transaction. This helps with performance and ensures
+        // consistency of the database.
+        db.beginTransaction();
+        try {
+
+            String FIND_FRIEND_BY_UUID_QUERY = new String("UPDATE " + FRIENDS + " SET " + MESSAGES_RECEIVED_COUNT + " = " + MESSAGES_RECEIVED_COUNT + "+1" + " WHERE " + BLUETOOTH_UUID + " = \"" + friend.getUuid() + "\" ;");
+
+            db.execSQL(FIND_FRIEND_BY_UUID_QUERY);
+            db.setTransactionSuccessful();
+
+        } catch (Exception e) {
+            Log.d(TAG, "Error while trying to add to database");
+        } finally {
+            db.endTransaction();
+        }
+
     }
 }
