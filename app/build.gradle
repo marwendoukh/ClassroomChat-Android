@@ -7,8 +7,8 @@ android {
         applicationId "com.classroomchat.marwen.classroomchat"
         minSdkVersion 15
         targetSdkVersion 26
-        versionCode 10
-        versionName "2.1.3"
+        versionCode 11
+        versionName "2.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

@@ -23,6 +23,6 @@
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
         android:gravity="center"
-        android:hint="name" />
+        android:hint="@string/your_name" />
 
 </LinearLayout>

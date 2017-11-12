@@ -10,6 +10,7 @@ It is an Android app that gives students the ability to chat in the classroom wi
 * Set custom messages
 * Rotate the phone to the direction you desire
 * Send your message even if your screen is turned off
+* Shake your phone to show the next list of messages (that you could set in App Settings)
 
 # Screenshots
 
