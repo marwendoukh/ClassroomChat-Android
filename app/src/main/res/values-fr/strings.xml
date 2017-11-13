@@ -67,4 +67,12 @@
     <string name="intro_fourth_description">Choisissez votre ami proche et communiquez avec lui en utilisant Bluetooth</string>
     <string name="your_name">Votre nom</string>
 
+
+    <!-- stats -->
+    <string name="total_messages_sent">Total des messages envoyés</string>
+    <string name="total_messages_received">Total des messages recus </string>
+    <string name="messages_sent">Messages envoyés</string>
+    <string name="messages_received">Messages recus</string>
+
+
 </resources>

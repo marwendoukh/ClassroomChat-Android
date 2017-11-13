@@ -69,4 +69,10 @@
     <string name="your_name">Your name</string>
     <string name="shake_detected">Shake detected , next menu is shown</string>
 
+    <!-- stats -->
+    <string name="total_messages_sent">Total messages sent</string>
+    <string name="total_messages_received">Total messages received</string>
+    <string name="messages_sent">Messages sent</string>
+    <string name="messages_received">Messages received</string>
+
 </resources>

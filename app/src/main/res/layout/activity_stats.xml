@@ -24,7 +24,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Total messages sent" />
+                android:text="@string/total_messages_sent" />
 
             <TextView
                 android:id="@+id/total_messages_sent_stats"
@@ -46,7 +46,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Total messages received" />
+                android:text="@string/total_messages_received" />
 
             <TextView
                 android:id="@+id/total_messages_received_stats"
