@@ -16,7 +16,7 @@
     <item
         android:id="@+id/stats"
         android:icon="@drawable/ic_trending_up_24dp"
-        android:title="@string/settings"
+        android:title="@string/stats"
         app:showAsAction="always" />
 
     <item

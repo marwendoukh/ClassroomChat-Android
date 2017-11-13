@@ -73,6 +73,7 @@
     <string name="total_messages_received">Total des messages recus </string>
     <string name="messages_sent">Messages envoyés</string>
     <string name="messages_received">Messages recus</string>
+    <string name="stats">Statistiques</string>
 
 
 </resources>

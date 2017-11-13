@@ -74,5 +74,6 @@
     <string name="total_messages_received">Total messages received</string>
     <string name="messages_sent">Messages sent</string>
     <string name="messages_received">Messages received</string>
+    <string name="stats">Stats</string>
 
 </resources>
