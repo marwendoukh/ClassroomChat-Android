@@ -9,6 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -16,6 +17,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -28,7 +30,8 @@
                 android:id="@+id/total_messages_sent_stats"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="10" />
+                android:text="10"
+                android:textSize="40sp" />
         </LinearLayout>
 
         <!-- total messages received -->
@@ -36,6 +39,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -48,7 +52,8 @@
                 android:id="@+id/total_messages_received_stats"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="10" />
+                android:text="10"
+                android:textSize="40sp" />
         </LinearLayout>
 
 
