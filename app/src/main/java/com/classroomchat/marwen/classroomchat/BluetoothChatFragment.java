@@ -445,6 +445,10 @@ public class BluetoothChatFragment extends Fragment implements SensorEventListen
                 startActivity(new Intent(getActivity(), SettingsActivity.class));
                 return true;
             }
+            case R.id.stats: {
+                startActivity(new Intent(getActivity(), StatsActivity.class));
+                return true;
+            }
         }
         return false;
     }

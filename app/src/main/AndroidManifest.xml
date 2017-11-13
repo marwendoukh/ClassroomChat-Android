@@ -7,7 +7,7 @@
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <!-- vibration permission -->
     <uses-permission android:name="android.permission.VIBRATE" />
-    <!-- sorage permission (for user profile)-->
+    <!-- sorage permission (for user profile) -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
@@ -31,7 +31,8 @@
         <activity
             android:name=".IntroActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".SetUpProfile"></activity>
+        <activity android:name=".SetUpProfile" />
+        <activity android:name=".StatsActivity"></activity>
     </application>
 
 </manifest>

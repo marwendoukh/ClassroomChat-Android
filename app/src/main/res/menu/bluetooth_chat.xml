@@ -14,9 +14,16 @@
         app:showAsAction="ifRoom" />
 
     <item
+        android:id="@+id/stats"
+        android:icon="@drawable/ic_trending_up_24dp"
+        android:title="@string/settings"
+        app:showAsAction="always" />
+
+    <item
         android:id="@+id/settings"
         android:icon="@drawable/ic_settings_24dp"
         android:title="@string/settings"
         app:showAsAction="always" />
+
 
 </menu>
