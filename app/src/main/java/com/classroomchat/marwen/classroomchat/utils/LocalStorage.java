@@ -10,6 +10,9 @@ import android.util.Log;
 
 import com.classroomchat.marwen.classroomchat.entity.Friend;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static android.content.ContentValues.TAG;
 
 /**
@@ -246,5 +249,108 @@ public class LocalStorage extends SQLiteOpenHelper {
             db.endTransaction();
         }
 
+    }
+
+
+    // total messages sent
+    public Integer totalMessagesSent() {
+
+        Integer totalMessagesSent = 0;
+
+        Friend friend = new Friend();
+        String FIND_FRIEND_BY_UUID_QUERY = new String("SELECT SUM(" + MESSAGES_SENT_COUNT + ") FROM " + FRIENDS);
+
+
+        // "getReadableDatabase()" and "getWriteableDatabase()" return the same object (except under low
+        // disk space scenarios)
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery(FIND_FRIEND_BY_UUID_QUERY, null);
+
+
+        try {
+            cursor.moveToFirst();
+
+            totalMessagesSent = cursor.getInt(0);
+
+
+        } catch (Exception e) {
+            Log.d(TAG, "Error while trying to communicate with database" + e.toString());
+        } finally {
+            if (cursor != null && !cursor.isClosed()) {
+                cursor.close();
+            }
+        }
+
+        return totalMessagesSent;
+    }
+
+
+    // total messages received
+    public Integer totalMessagesReceived() {
+
+        Integer totalMessagesReceived = 0;
+
+        Friend friend = new Friend();
+        String FIND_FRIEND_BY_UUID_QUERY = new String("SELECT SUM(" + MESSAGES_RECEIVED_COUNT + ") FROM " + FRIENDS);
+
+
+        // "getReadableDatabase()" and "getWriteableDatabase()" return the same object (except under low
+        // disk space scenarios)
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery(FIND_FRIEND_BY_UUID_QUERY, null);
+
+
+        try {
+            cursor.moveToFirst();
+
+            totalMessagesReceived = cursor.getInt(0);
+
+
+        } catch (Exception e) {
+            Log.d(TAG, "Error while trying to communicate with database" + e.toString());
+        } finally {
+            if (cursor != null && !cursor.isClosed()) {
+                cursor.close();
+            }
+        }
+
+        return totalMessagesReceived;
+    }
+
+
+    // find all friends
+    public List<Friend> findAllFriends() {
+
+        List<Friend> friends = new ArrayList<>();
+        String FIND_FRIEND_BY_UUID_QUERY = new String("SELECT * FROM " + FRIENDS);
+
+
+        // "getReadableDatabase()" and "getWriteableDatabase()" return the same object (except under low
+        // disk space scenarios)
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery(FIND_FRIEND_BY_UUID_QUERY, null);
+
+
+        try {
+            if (cursor.moveToFirst()) {
+
+                Friend friend = new Friend();
+                friend.setFriendName(cursor.getString(cursor.getColumnIndex(FRIEND_NAME)));
+                friend.setUuid(cursor.getString(cursor.getColumnIndex(BLUETOOTH_UUID)));
+                friend.setConnectionCount(cursor.getInt(cursor.getColumnIndex(CONNECTION_COUNT)));
+                friend.setMessagesSentCount(cursor.getInt(cursor.getColumnIndex(MESSAGES_SENT_COUNT)));
+                friend.setMessagesReceivedCount(cursor.getInt(cursor.getColumnIndex(MESSAGES_RECEIVED_COUNT)));
+                friends.add(friend);
+
+            }
+        } catch (Exception e) {
+            Log.d(TAG, "Error while trying to communicate with database");
+        } finally {
+            if (cursor != null && !cursor.isClosed()) {
+                cursor.close();
+            }
+        }
+
+        return friends;
     }
 }
